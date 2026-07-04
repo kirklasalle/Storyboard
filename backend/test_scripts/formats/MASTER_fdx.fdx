@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+================================================================================
+MASTER CLASS: Final Draft FDX Format
+Every FDX Paragraph Type demonstrated through master-level craft.
+Title: THE WEIGHT OF EVIDENCE
+Format: Feature Film / Courtroom Drama
+================================================================================
+-->
+<FinalDraft DocumentType="Script" Template="No" Version="4">
+  <Content>
+
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <!-- ELEMENT: Transition — FADE IN:                                      -->
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <Paragraph Type="Transition">
+      <Text>FADE IN:</Text>
+    </Paragraph>
+
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <!-- ELEMENT: Scene Heading — INT./LOCATION/TIME                         -->
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <Paragraph Type="Scene Heading">
+      <Text>INT. SUPERIOR COURT — DEPARTMENT 14 — DAY</Text>
+    </Paragraph>
+
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <!-- ELEMENT: Action — the cinematic description line                    -->
+    <!-- Rule: one idea per paragraph. Motion, not state.                   -->
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <Paragraph Type="Action">
+      <Text>The gallery is full. People who have come to watch something happen and are not certain they will be glad they did.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Action">
+      <Text>DEFENSE ATTORNEY MARGOT CHEN (50s, the specific stillness of someone who has long since stopped wasting motion) arranges three documents on the table. She does not look at the jury. The jury looks at her.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Action">
+      <Text>Her client, THOMAS REED (40s, former city official, the ruins of confidence in his posture), watches her with the eyes of a man who has run out of other options.</Text>
+    </Paragraph>
+
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <!-- ELEMENT: Shot — specific camera instruction within scene            -->
+    <!-- Used for tight visual direction. Use sparingly.                     -->
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <Paragraph Type="Shot">
+      <Text>CLOSE ON — CHEN'S HANDS</Text>
+    </Paragraph>
+
+    <Paragraph Type="Action">
+      <Text>The third document is different from the other two. Newer paper. A different weight. She places it face-down.</Text>
+    </Paragraph>
+
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <!-- ELEMENT: Character cue                                              -->
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <Paragraph Type="Character">
+      <Text>JUDGE PARISH</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>JUDGE ELEANOR PARISH (60s, twenty-two years on the bench, the kind of fairness that has been tested enough times to be genuine) surveys the room once before she speaks.</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Ms. Chen. You indicated a surprise witness. I'm going to remind you that surprises, in my courtroom, are either excellent or catastrophic. I've seen very few of the former.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Character">
+      <Text>CHEN</Text>
+    </Paragraph>
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <!-- ELEMENT: Parenthetical — used only when tone is genuinely ambiguous -->
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <Paragraph Type="Parenthetical">
+      <Text>(standing)</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Your Honor. The defense calls Dr. Irene Solis.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Action">
+      <Text>The PROSECUTOR — KEVIN MARSH (40s, the particular confidence of a man who has not yet been surprised by this case) — sits back. He is surprised by this case.</Text>
+    </Paragraph>
+
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <!-- ELEMENT: General — non-dramatic text: production notes, headers    -->
+    <!-- In broadcast TV: used for act labels, producer notes, etc.         -->
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <Paragraph Type="General">
+      <Text>NOTE: Dr. Solis's testimony spans the next six pages. The action lines during her testimony should be cut to their minimum — we stay on faces. The evidence speaks. We watch people receive it.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Scene Heading">
+      <Text>INT. SUPERIOR COURT — WITNESS STAND — CONTINUOUS</Text>
+    </Paragraph>
+
+    <Paragraph Type="Action">
+      <Text>DR. IRENE SOLIS (60s, forensic accountant, the bearing of someone who has spent forty years being the least popular person in any room and has made her peace with this) takes the stand with no visible concern for what the room is feeling about her arrival.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Character">
+      <Text>CHEN</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Dr. Solis. In your forty years of forensic accounting, have you ever encountered a financial instrument structured quite like the Meridian Trust?</Text>
+    </Paragraph>
+
+    <Paragraph Type="Character">
+      <Text>DR. SOLIS</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Once.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Character">
+      <Text>CHEN</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>And what was the outcome of that case?</Text>
+    </Paragraph>
+
+    <Paragraph Type="Character">
+      <Text>DR. SOLIS</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Eleven convictions. Including a sitting senator.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Action">
+      <Text>The gallery does not make noise. It holds its breath. This is louder.</Text>
+    </Paragraph>
+
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <!-- ELEMENT: Shot — POV, angle, or specific lens direction              -->
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <Paragraph Type="Shot">
+      <Text>ANGLE ON — PROSECUTOR MARSH</Text>
+    </Paragraph>
+
+    <Paragraph Type="Action">
+      <Text>He writes something on his legal pad. He writes it slowly. Whatever he writes, it has nothing to do with what Dr. Solis just said. It is how he keeps his face neutral.</Text>
+    </Paragraph>
+
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <!-- ELEMENT: Transition — CUT TO                                        -->
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <Paragraph Type="Transition">
+      <Text>CUT TO:</Text>
+    </Paragraph>
+
+    <Paragraph Type="Scene Heading">
+      <Text>INT. COURTHOUSE — CORRIDOR — RECESS</Text>
+    </Paragraph>
+
+    <Paragraph Type="Action">
+      <Text>Marsh finds Chen at the far end of the corridor. She is looking out the window at the parking structure below. He comes to stand beside her. This is not hostile. Both of them understand they are in the middle of something that has moved beyond posture.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Character">
+      <Text>MARSH</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Where did you find her?</Text>
+    </Paragraph>
+
+    <Paragraph Type="Character">
+      <Text>CHEN</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>She found me. Three months ago. She said she'd been waiting for someone to ask the right question.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Character">
+      <Text>MARSH</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>What's the right question?</Text>
+    </Paragraph>
+
+    <Paragraph Type="Character">
+      <Text>CHEN</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Who benefited from the trust existing in exactly the form it exists in. Not who created it. Who needed it to be invisible.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Action">
+      <Text>Marsh looks at the parking structure. He looks at it for a long time.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Character">
+      <Text>MARSH</Text>
+    </Paragraph>
+    <Paragraph Type="Parenthetical">
+      <Text>(quietly, not to her specifically)</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>How far up does it go?</Text>
+    </Paragraph>
+
+    <Paragraph Type="Character">
+      <Text>CHEN</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>All the way up.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Action">
+      <Text>She turns from the window. She walks back toward the courtroom. She does not look back.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Action">
+      <Text>Marsh watches her go. Then he takes out his phone. Looks at a number. Puts the phone away without dialing.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Action">
+      <Text>He stays at the window for a long moment.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Action">
+      <Text>He makes a choice that we can see in his body before we see it in his actions.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Action">
+      <Text>He walks toward the courtroom.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Transition">
+      <Text>DISSOLVE TO:</Text>
+    </Paragraph>
+
+    <Paragraph Type="Scene Heading">
+      <Text>INT. SUPERIOR COURT — DEPARTMENT 14 — LATER</Text>
+    </Paragraph>
+
+    <Paragraph Type="Action">
+      <Text>The jury returns. Twelve people who have been somewhere private together and have arrived at a shared truth.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Action">
+      <Text>Thomas Reed's hands are flat on the defense table. He has stopped anticipating. He is simply present in the room where his life will be determined.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Action">
+      <Text>Chen sits beside him. Her face gives nothing. Not because she feels nothing — because this is not the moment for her feelings.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Shot">
+      <Text>CLOSE ON — THE JURY FOREPERSON'S HANDS</Text>
+    </Paragraph>
+
+    <Paragraph Type="Action">
+      <Text>Holding a folded paper. The verdict, contained. The world before it is read, and the world after it is read, are separated by three inches of white paper and a human voice.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Character">
+      <Text>JURY FOREPERSON</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>On the count of conspiracy to commit fraud in the first degree, we the jury find the defendant...</Text>
+    </Paragraph>
+
+    <Paragraph Type="Action">
+      <Text>The room holds its breath.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Action">
+      <Text>Reed closes his eyes.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Action">
+      <Text>Chen's hand, under the table, presses once against his arm.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Transition">
+      <Text>SMASH CUT TO BLACK.</Text>
+    </Paragraph>
+
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <!-- ELEMENT: Act Break — for TV / multi-act theatrical works           -->
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <Paragraph Type="Act Break">
+      <Text>END OF ACT ONE</Text>
+    </Paragraph>
+
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <!-- ELEMENT: Transition — FADE IN: for new act                         -->
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <Paragraph Type="Transition">
+      <Text>FADE IN:</Text>
+    </Paragraph>
+
+    <Paragraph Type="Scene Heading">
+      <Text>EXT. SUPERIOR COURT — STEPS — DAY</Text>
+    </Paragraph>
+
+    <Paragraph Type="Action">
+      <Text>The light outside is different from the light inside. Brighter. Less measured. The city continues in every direction with complete indifference to what was just decided inside that building.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Action">
+      <Text>Chen stands at the top of the steps. Not moving yet. Just standing in the first moments of the world after the verdict.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Action">
+      <Text>Marsh comes out behind her. He stops when he sees she hasn't moved.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Character">
+      <Text>MARSH</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Good work.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Action">
+      <Text>She turns. Looks at him. What passes between them is not triumph. It is the specific gravity of people who have participated in something serious together and know that the seriousness doesn't end with the verdict.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Character">
+      <Text>CHEN</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>It's not finished.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Character">
+      <Text>MARSH</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>No.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Action">
+      <Text>She starts down the steps. The city opens in front of her.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Transition">
+      <Text>FADE OUT.</Text>
+    </Paragraph>
+
+  </Content>
+</FinalDraft>
+<!--
+================================================================================
+FDX PARAGRAPH TYPE REFERENCE — COMPLETE INDEX
+================================================================================
+
+TYPE="Scene Heading"    INT./EXT. LOCATION — TIME
+                        Forced uppercase. Slug line. Opens every scene.
+
+TYPE="Action"           Cinematic description — what the camera sees.
+                        One idea per paragraph. Physical, sensory, active.
+
+TYPE="Character"        ALL CAPS character name above dialogue.
+                        Includes extensions: (V.O.), (O.S.), (CONT'D)
+
+TYPE="Dialogue"         Character's spoken words.
+                        One speech per Dialogue element.
+
+TYPE="Parenthetical"    (performance direction) — used sparingly.
+                        Only when tone is genuinely unreadable from text.
+
+TYPE="Transition"       FADE IN: / CUT TO: / DISSOLVE TO: / SMASH CUT TO:
+                        MATCH CUT TO: / FADE OUT. / FADE TO BLACK.
+                        Right-aligned in standard format.
+
+TYPE="Shot"             CLOSE ON: / ANGLE ON: / POV: / INSERT — specific
+                        camera or visual direction. Interrupts Action flow.
+
+TYPE="General"          Non-dramatic text: production notes, act headers,
+                        title cards, writer notes. Flexible type.
+
+TYPE="Act Break"        END OF TEASER / END OF ACT ONE / TAG
+                        Used in TV format to mark structural divisions.
+
+DUAL DIALOGUE:          Two Character + Dialogue blocks marked with
+                        DualDialogue="Yes" attribute on parent container.
+                        Characters speak simultaneously, equal weight.
+
+SCENE PROPERTIES:       <SceneProperties> element on Scene Heading
+                        contains: SceneLength, Title, Panel info.
+================================================================================
+-->

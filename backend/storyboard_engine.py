@@ -67,11 +67,40 @@ class StoryboardEngine:
 
         # 2. Narrative & Cinematography Pass — one LLM call per scene
         for i, scene in enumerate(scenes):
-            logger.info(f"ENGINE: Scene {i+1}/{len(scenes)}: {scene.get('heading')}")
-            logger.debug(f"ENGINE: Scene text preview: {scene.get('text','')[:120]!r}")
-            scene_text = scene.get("text", "")
+            frame = await self.analyze_single_scene(
+                scene=scene,
+                scene_index=i,
+                total_scenes=len(scenes),
+                genre=genre,
+                style_guidance=style_guidance,
+                visual_style=visual_style,
+                wisdom_context=wisdom_context,
+            )
+            processed_frames.append(frame)
 
-            prompt = f"""You are a world-class cinematographer and storyboard artist analyzing a {genre} screenplay.
+        logger.info(f"ENGINE: Analysis complete. {len(processed_frames)} frames identified.")
+        return processed_frames
+
+    async def analyze_single_scene(
+        self,
+        scene: Dict[str, Any],
+        scene_index: int,
+        total_scenes: int,
+        genre: str,
+        style_guidance: Dict[str, Any],
+        visual_style: Dict[str, Any],
+        wisdom_context: str = "",
+    ) -> Dict[str, Any]:
+        """
+        Analyze a single scene. Extracted so both batch and streaming
+        endpoints can use the same analysis logic.
+        """
+        i = scene_index
+        logger.info(f"ENGINE: Scene {i+1}/{total_scenes}: {scene.get('heading')}")
+        logger.debug(f"ENGINE: Scene text preview: {scene.get('text','')[:120]!r}")
+        scene_text = scene.get("text", "")
+
+        prompt = f"""You are a world-class cinematographer and storyboard artist analyzing a {genre} screenplay.
 
 Visual Style Guidance: {style_guidance['visual_style']}
 Intensity Focus: {style_guidance['intensity_focus']}
@@ -102,48 +131,44 @@ Rules:
 - shot_type examples: ECU, CU, MCU, MS, WS, EWS, OTS, POV, Dutch Angle, Overhead
 - camera_movement examples: Static, Handheld, Dolly In, Dolly Out, Pan, Tilt, Crane, Drone, Tracking
 """
-
-            try:
-                result_text = await self.provider.generate_text(prompt)
-                logger.debug(f"ENGINE: Raw LLM response for scene {i+1}: {result_text[:300]!r}")
-                json_text = self._extract_json(result_text)
-                analysis = json.loads(json_text)
-                frame = {
-                    "scene_number": i + 1,
-                    "heading": scene.get("heading", f"Scene {i + 1}"),
-                    "description": analysis.get("description", ""),
-                    "intensity_score": float(analysis.get("intensity_score", 5.0)),
-                    "intensity_type": analysis.get("intensity_type", "Lull"),
-                    "moment_summary": analysis.get("moment_summary", ""),
-                    "shot_type": analysis.get("shot_type", "Medium Shot"),
-                    "camera_movement": analysis.get("camera_movement", "Static"),
-                    "lens": analysis.get("lens", "50mm"),
-                    "lighting": analysis.get("lighting", "Natural"),
-                }
-                processed_frames.append(frame)
-                logger.info(
-                    f"ENGINE: Scene {i+1} ✓ | "
-                    f"intensity={frame['intensity_score']:.1f} | "
-                    f"type={frame['intensity_type']} | "
-                    f"shot={frame['shot_type']}"
-                )
-            except Exception as e:
-                logger.error(f"ENGINE: Failed scene {i+1}: {e}", exc_info=True)
-                processed_frames.append({
-                    "scene_number": i + 1,
-                    "heading": scene.get("heading", f"Scene {i + 1}"),
-                    "description": scene_text[:300] if scene_text else "Scene content unavailable",
-                    "intensity_score": 5.0,
-                    "intensity_type": "Lull",
-                    "moment_summary": "Analysis unavailable — using raw scene text",
-                    "shot_type": "Medium Shot",
-                    "camera_movement": "Static",
-                    "lens": "50mm",
-                    "lighting": "Natural",
-                })
-
-        logger.info(f"ENGINE: Analysis complete. {len(processed_frames)} frames identified.")
-        return processed_frames
+        try:
+            result_text = await self.provider.generate_text(prompt)
+            logger.debug(f"ENGINE: Raw LLM response for scene {i+1}: {result_text[:300]!r}")
+            json_text = self._extract_json(result_text)
+            analysis = json.loads(json_text)
+            frame = {
+                "scene_number": i + 1,
+                "heading": scene.get("heading", f"Scene {i + 1}"),
+                "description": analysis.get("description", ""),
+                "intensity_score": float(analysis.get("intensity_score", 5.0)),
+                "intensity_type": analysis.get("intensity_type", "Lull"),
+                "moment_summary": analysis.get("moment_summary", ""),
+                "shot_type": analysis.get("shot_type", "Medium Shot"),
+                "camera_movement": analysis.get("camera_movement", "Static"),
+                "lens": analysis.get("lens", "50mm"),
+                "lighting": analysis.get("lighting", "Natural"),
+            }
+            logger.info(
+                f"ENGINE: Scene {i+1} ✓ | "
+                f"intensity={frame['intensity_score']:.1f} | "
+                f"type={frame['intensity_type']} | "
+                f"shot={frame['shot_type']}"
+            )
+            return frame
+        except Exception as e:
+            logger.error(f"ENGINE: Failed scene {i+1}: {e}", exc_info=True)
+            return {
+                "scene_number": i + 1,
+                "heading": scene.get("heading", f"Scene {i + 1}"),
+                "description": scene_text[:300] if scene_text else "Scene content unavailable",
+                "intensity_score": 5.0,
+                "intensity_type": "Lull",
+                "moment_summary": "Analysis unavailable — using raw scene text",
+                "shot_type": "Medium Shot",
+                "camera_movement": "Static",
+                "lens": "50mm",
+                "lighting": "Natural",
+            }
 
     async def generate_visual(
         self,

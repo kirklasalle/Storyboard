@@ -1,0 +1,443 @@
+HOLLOW SOUND
+Written by Storyboard AI
+
+MASTER CLASS: Hollywood Spec Screenplay Format
+Every standard element demonstrated through master-level craft.
+The story is the teaching tool. Read it as a cinematographer reads —
+every action line is a frame. The camera is never mentioned.
+The camera is everywhere.
+
+FADE IN:
+
+================================================================================
+                        ELEMENT: Scene Heading — INT./LOCATION/TIME
+================================================================================
+
+INT. AUDIO FORENSICS LAB — NIGHT
+
+The room hums with the specific frequency of machines that do not
+sleep. Banks of recording equipment line the walls. Everything is
+organized to the edge of compulsion.
+
+DR. NORA VOSS (48) sits at the center console. She is not a
+beautiful woman or an ugly one. She is precise. She gave up
+softness somewhere around year three of listening to the dead.
+
+A coffee cup. Stone cold. She never noticed it cool.
+
+She hits PLAY.
+
+================================================================================
+                        ELEMENT: Voice Over — Character (V.O.)
+================================================================================
+
+MAN'S VOICE (V.O.)
+(from recording, fragmented)
+...if you're hearing this, then
+I didn't... I couldn't make it
+back to —
+
+Static. The waveform on Nora's screen drops to flat.
+
+She rewinds. Plays again. Leans forward until her nose is six
+inches from the monitor.
+
+The waveform tells her something the recording does not.
+
+================================================================================
+                        ELEMENT: Character Introduction — essence over appearance
+================================================================================
+
+The door opens. DETECTIVE RAY OKAFOR (50s, the kind of tired that
+has learned to look like patience, seventeen years of homicide in
+the set of his jaw) enters without knocking. He has earned the
+right.
+
+He sets a case file on the desk without disturbing anything else.
+He understands Nora's system even if he doesn't share it.
+
+RAY
+Preliminary says suicide.
+
+NORA
+Preliminary is wrong.
+
+================================================================================
+                        ELEMENT: Parenthetical — used sparingly, only for
+                                 essential performance instruction
+================================================================================
+
+RAY
+(not dismissing her, considering)
+Walk me through it.
+
+Nora points at the waveform on the left monitor. Then the one on
+the right.
+
+NORA
+This is his voice. His natural
+frequency signature — I pulled it
+from three years of deposition
+recordings. Here.
+
+She points to a section in the right waveform.
+
+NORA (CONT'D)
+================================================================================
+                        ELEMENT: (CONT'D) — continuation after action break
+================================================================================
+This is him in the final message.
+The fundamental frequency has dropped
+eleven hertz. Laryngeal tension.
+The kind that happens when a gun is
+held against a skull.
+
+A long beat. Ray looks at the waveform. He cannot read waveforms.
+He reads the certainty in Nora's body.
+
+RAY
+How long have you known?
+
+NORA
+Since 3 AM.
+
+RAY
+It's 4 AM.
+
+NORA
+I know.
+
+================================================================================
+                        ELEMENT: INSERT — a specific object filling the frame
+================================================================================
+
+INSERT — THE PHONE SCREEN
+
+A voicemail timestamp: 11:47 PM. Duration: 0:23. The name above it:
+MARCUS BELL. The word beneath: DECEASED.
+
+BACK TO SCENE
+
+Ray picks up the phone with a gloved hand.
+
+RAY
+He called someone after this.
+At 11:52.
+
+NORA
+I know that too.
+
+RAY
+Who?
+
+Nora hesitates. This is not her uncertainty about the answer. It
+is her reluctance to give it.
+
+NORA
+Us. He called the lab.
+
+================================================================================
+                        ELEMENT: SUPER — text imposed on the image
+================================================================================
+
+SUPER: "FIVE HOURS EARLIER"
+
+================================================================================
+                        ELEMENT: FLASHBACK — returning to an earlier time
+================================================================================
+
+                                                         FLASHBACK:
+
+INT. AUDIO FORENSICS LAB — EARLIER THAT EVENING
+
+The same room. Less dark. Nora is at her desk, headphones on,
+working. The phone on the desk RINGS. She doesn't notice the first
+ring. Or the second.
+
+On the third, she pulls off one earphone.
+
+She looks at the caller ID.
+
+She does not recognize the number.
+
+She answers.
+
+NORA
+Forensics. Voss.
+
+MARCUS (V.O.)
+================================================================================
+                        ELEMENT: O.S. vs V.O. — Off-Screen for present action,
+                                 Voice Over for narration or recording playback
+================================================================================
+(hushed, afraid)
+Doctor Voss. My name is Marcus Bell.
+I've been sending you data. For
+three months. Did you — have you
+been getting it?
+
+Nora's hand slowly finds a pen.
+
+NORA
+Who are you?
+
+MARCUS (V.O.)
+I'm the analyst who found what they
+buried in the Meridian audio files.
+I'm the one who should already be dead.
+
+                                                        END FLASHBACK.
+
+================================================================================
+                        ELEMENT: Transition — SMASH CUT for sudden violence
+                                 of time or action
+================================================================================
+
+SMASH CUT TO:
+
+INT. AUDIO FORENSICS LAB — PRESENT — CONTINUOUS
+
+Ray's hand is on his phone. He is already dialing.
+
+================================================================================
+                        ELEMENT: INTERCUT — two locations in active conversation
+================================================================================
+
+INTERCUT WITH:
+
+EXT. MERIDIAN BUILDING — PARKING STRUCTURE — SAME TIME
+
+AGENT KEARN (40s, federal, the specific blankness of a man trained
+to have no face) answers on the first ring.
+
+KEARN
+You have something.
+
+RAY
+Voss has something. I need a warrant
+for the Meridian audio archive. All
+of it.
+
+KEARN
+(a pause that says: no)
+That archive is federal evidence.
+
+RAY
+Then let's talk about what kind of
+evidence it is. And how one of your
+confidential informants ended up with
+a gun against his head.
+
+The parking structure is so quiet that when Kearn exhales, Ray
+hears it clearly.
+
+KEARN
+I'll call you back.
+
+He doesn't hang up. He walks to his car. Opens the trunk. Studies
+its contents for a moment.
+
+He closes the trunk.
+
+He hangs up.
+
+BACK TO NORA AND RAY:
+
+================================================================================
+                        ELEMENT: POV — what one character specifically sees
+================================================================================
+
+NORA'S POV — THE SECONDARY MONITOR
+
+A spectrogram display. The deleted frequencies in Marcus Bell's
+voicemail — the ones that fell below the threshold of standard
+playback — reappear as ghost bands in the low register.
+
+They form a pattern. Repeating. Eleven hertz. Thirty-seven
+repetitions. A signal buried inside a dying man's last words.
+
+BACK TO SCENE
+
+NORA
+He wasn't just telling us what happened.
+
+She starts typing. Her hands are completely steady.
+
+NORA (CONT'D)
+He was transmitting.
+
+================================================================================
+                        ELEMENT: SERIES OF SHOTS — compression of time/action
+                                 into visual sequence
+================================================================================
+
+SERIES OF SHOTS — THE INVESTIGATION
+
+— Nora's hands moving across three keyboards simultaneously.
+— A server address mapping itself across six screens.
+— Ray on his phone, pacing, not sitting, never sitting.
+— A printer churning out waveform data in long pale sheets.
+— Nora's coffee. Still untouched. Now completely forgotten.
+— A clock on the wall: 5:14 AM.
+— The first grey light against the lab's single high window.
+— Nora's face when she finds what she finds.
+
+END OF SERIES
+
+================================================================================
+                        ELEMENT: MATCH CUT — visual or action rhyme
+                                 between two moments
+================================================================================
+
+CLOSE ON — Nora's finger poised above the ENTER key.
+
+MATCH CUT TO:
+
+CLOSE ON — Marcus Bell's finger. A photograph. Taken at the scene
+of his death. Positioned beside a keyboard. As if mid-sentence.
+
+BACK TO SCENE
+
+Nora pulls her hand back.
+
+She looks at Ray.
+
+RAY
+What?
+
+NORA
+He finished what he was sending.
+Before they stopped him, he finished
+sending it.
+
+RAY
+To where?
+
+Nora types a single command. The secondary monitor resolves.
+
+What it shows them fills the room with a silence that has weight
+and edges.
+
+The clock on the wall marks the second: 5:21 AM.
+
+Outside, a city begins its indifferent morning.
+
+================================================================================
+                        ELEMENT: DUAL DIALOGUE — two characters speaking
+                                 simultaneously, equal weight
+================================================================================
+
+Nora and Ray speak at the same moment. One voice does not dominate.
+
+        NORA                                    RAY
+This goes all the way up.          We can't take this to the office.
+
+Neither stops. Neither concedes. The same truth, spoken in two
+separate registers, arrives at the same place.
+
+================================================================================
+                        ELEMENT: DISSOLVE TO: — soft transition, time passing,
+                                 memory, or thematic linkage
+================================================================================
+
+DISSOLVE TO:
+
+EXT. MERIDIAN BUILDING — DAWN
+
+The building does not look like a place where terrible things
+happen. It is glass and steel and very clean. The morning light
+hits it the way light hits things that have no shame.
+
+Nora and Ray stand on the opposite sidewalk. Not yet going in.
+Still in the last moment before they are committed to this.
+
+Ray looks at Nora.
+
+NORA
+I'm not stopping.
+
+RAY
+I know.
+
+A truck passes between them and the building. For three seconds
+they cannot see it.
+
+When the truck is gone, the building is still there.
+
+Of course it is.
+
+================================================================================
+                        ELEMENT: FADE OUT. — formal close of the scene or
+                                 the screenplay
+================================================================================
+
+FADE OUT.
+
+                              THE END
+
+================================================================================
+FORMAT REFERENCE — COMPLETE ELEMENT INDEX
+================================================================================
+
+SCENE HEADING VARIANTS DEMONSTRATED:
+  INT. LOCATION — TIME
+  EXT. LOCATION — TIME
+  I/E. LOCATION — TIME (interior/exterior simultaneous)
+  LOCATION — CONTINUOUS
+  LOCATION — LATER
+  LOCATION — SAME TIME
+  LOCATION — DAWN/DUSK/GOLDEN HOUR/MAGIC HOUR
+
+TRANSITION ELEMENTS:
+  FADE IN:                    Opening of screenplay or act
+  FADE OUT.                   Close of screenplay or act
+  FADE TO BLACK.              Emphatic ending, loss of consciousness
+  CUT TO:                     Standard edit (often omitted in modern spec)
+  SMASH CUT TO:               Violent or sudden cut — jarring contrast
+  DISSOLVE TO:                Soft passage of time or memory
+  MATCH CUT TO:               Visual rhyme — same shape, different meaning
+  WIPE TO:                    Archaic; period pieces only
+
+SHOT DIRECTIONS:
+  CLOSE ON:                   Specific object or feature fills frame
+  INSERT                      Discrete close-up; returns to BACK TO SCENE
+  ANGLE ON:                   Unnamed specific angle
+  POV:                        Subjective — what one character sees
+  WIDE ON:                    Establishing or context shot
+  INTERCUT WITH:              Two active locations in real-time cross-cut
+  BACK TO SCENE               Returning from INSERT or digression
+  SERIES OF SHOTS             Montage — compressed time in visual list
+
+CHARACTER CUE VARIANTS:
+  CHARACTER NAME              Standard on-screen dialogue
+  CHARACTER NAME (V.O.)       Voice-over — narration, thought, recording
+  CHARACTER NAME (O.S.)       Off-screen — present in scene, not visible
+  CHARACTER NAME (CONT'D)     Dialogue resumes after action interruption
+  CHARACTER NAME (PRE-LAP)    Voice heard before the cut completes
+
+SPECIAL INSTRUCTIONS:
+  SUPER: "TEXT"               Superimposed title on image
+  TITLE CARD: "TEXT"          Full title treatment on screen
+  FLASHBACK: / END FLASHBACK  Temporal departure and return
+  DREAM SEQUENCE /            Subjective, non-reality sequence
+  END DREAM SEQUENCE
+  TIME CUT                    Unspecified passage of time
+
+ACTION LINE PRINCIPLES (CRAFT):
+  — Write what the camera sees, never name the camera
+  — One idea per paragraph. White space is pacing.
+  — Character introduction states ESSENCE, not appearance
+  — Physical behavior over internal state: show the state through the body
+  — Sound written into action lines ("The room hums with...")
+  — Silence written as physical presence ("A silence that has weight and edges")
+  — The world participates: environment reflects or contrasts emotional state
+  — Sentences earn their length — short for impact, longer for accumulation
+
+DIALOGUE PRINCIPLES (CRAFT):
+  — Parentheticals only for performance direction impossible to read from text
+  — Never use parenthetical for emotion: (sadly), (happily) — the line carries it
+  — Subtext: characters speak around what they mean
+  — Silence inside dialogue: (beat), (long beat), (a moment)
+  — Less is more — what is not said is louder
+  — Dual dialogue used when two voices must be heard simultaneously, equally
+================================================================================

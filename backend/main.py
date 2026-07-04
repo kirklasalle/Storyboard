@@ -15,6 +15,7 @@ from logging_config import configure_logging  # type: ignore
 from governance import GovernanceEngine  # type: ignore
 from knowledge_base import CinematicKnowledgeBase  # type: ignore
 from content_agreement import get_agreement, log_acceptance  # type: ignore
+from crypto_utils import encrypt_api_key, decrypt_api_key  # type: ignore
 import uvicorn # type: ignore
 import uuid
 import os
@@ -136,16 +137,18 @@ async def get_local_models(base_url: str = "http://127.0.0.1:11434"):
         return []
 
 def get_provider(config: ProviderConfig):
+    # Decrypt API key at use-time (transparent for both encrypted and legacy plaintext)
+    api_key = decrypt_api_key(config.api_key)
     if config.type == "openai":
-        return OpenAIProvider(api_key=config.api_key, base_url=config.base_url, model_name=config.model_name or "gpt-4o")
+        return OpenAIProvider(api_key=api_key, base_url=config.base_url, model_name=config.model_name or "gpt-4o")
     elif config.type == "anthropic":
-        return AnthropicProvider(api_key=config.api_key, model_name=config.model_name or "claude-3-5-sonnet-20240620", base_url=config.base_url)
+        return AnthropicProvider(api_key=api_key, model_name=config.model_name or "claude-3-5-sonnet-20240620", base_url=config.base_url)
     elif config.type == "google":
-        return GoogleProvider(api_key=config.api_key, model_name=config.model_name or "gemini-1.5-flash") # Google SDK handles this differently
+        return GoogleProvider(api_key=api_key, model_name=config.model_name or "gemini-1.5-flash")
     elif config.type == "openrouter":
-        return OpenRouterProvider(api_key=config.api_key, model_name=config.model_name or "meta-llama/llama-3.1-8b-instruct:free", base_url=config.base_url)
+        return OpenRouterProvider(api_key=api_key, model_name=config.model_name or "meta-llama/llama-3.1-8b-instruct:free", base_url=config.base_url)
     elif config.type == "groq":
-        return GroqProvider(api_key=config.api_key, model_name=config.model_name or "llama-3.1-70b-versatile", base_url=config.base_url)
+        return GroqProvider(api_key=api_key, model_name=config.model_name or "llama-3.1-70b-versatile", base_url=config.base_url)
     elif config.type == "local":
         return LocalProvider(base_url=config.base_url, model_name=config.model_name or "llama3")
     else:
@@ -273,7 +276,7 @@ async def save_config(config: ProviderConfig):
         existing = db.query(ProviderConfiguration).first()
         if existing:
             existing.type = config.type
-            existing.api_key = config.api_key
+            existing.api_key = encrypt_api_key(config.api_key or "")
             existing.base_url = config.base_url
             existing.model_name = config.model_name
             existing.storyboard_style = config.storyboard_style or "oscar_prestige"
@@ -281,7 +284,7 @@ async def save_config(config: ProviderConfig):
             new_config = ProviderConfiguration(
                 id="default",
                 type=config.type,
-                api_key=config.api_key,
+                api_key=encrypt_api_key(config.api_key or ""),
                 base_url=config.base_url,
                 model_name=config.model_name,
                 storyboard_style=config.storyboard_style or "oscar_prestige",
@@ -475,6 +478,105 @@ async def generate_storyboard(project_id: str, config: ProviderConfig):
         return JSONResponse(status_code=status_code, content={"error": error_msg, "type": "provider_error"})
     finally:
         db.close()
+
+@app.post("/projects/{project_id}/generate-stream")
+async def generate_storyboard_stream(project_id: str, config: ProviderConfig):
+    """
+    SSE streaming endpoint for storyboard generation.
+    Emits one JSON event per scene as it completes, allowing the frontend
+    to populate frames progressively rather than waiting for full completion.
+
+    Event types:
+      {type: "start",    total: N}
+      {type: "frame",    frame: {...}, progress: {current: N, total: N}}
+      {type: "complete", total: N}
+      {type: "error",    message: "..."}
+    """
+    from fastapi.responses import StreamingResponse as _SR
+    import json as _json
+
+    async def event_stream():
+        db = SessionLocal()
+        try:
+            script = db.query(Script).filter(Script.project_id == project_id).order_by(Script.version.desc()).first()
+            if not script:
+                yield f"data: {_json.dumps({'type': 'error', 'message': 'No script found for this project'})}\n\n"
+                return
+
+            provider = get_provider(config)
+            engine = StoryboardEngine(provider, knowledge_base=knowledge_base)
+            scenes = ScriptParser.parse(script.content, format_hint=script.script_format or "auto")
+
+            if not scenes:
+                yield f"data: {_json.dumps({'type': 'error', 'message': 'Could not identify any scenes in this document'})}\n\n"
+                return
+
+            # Detect genre
+            script_sample = "\n".join([s.get("heading", "") for s in scenes[:5]])
+            import re as _re
+            raw_genre = await provider.generate_text(
+                f"Identify the primary film genre in one word (Action, Drama, Horror, Comedy, Thriller, SciFi, Western, Noir, Fantasy, Romance, War, etc.):\n\n{script_sample}"
+            )
+            genre = _re.sub(r'[^a-zA-Z\-]', '', raw_genre.strip().split()[0]).lower()
+
+            from genre_vault import get_style_guidance as _gsg  # type: ignore
+            from style_vault import get_style as _gs  # type: ignore
+            style_guidance = _gsg(genre)
+            storyboard_style = config.storyboard_style or "oscar_prestige"
+            visual_style = _gs(storyboard_style)
+            wisdom_context = engine.knowledge_base.get_wisdom_context(genre) if engine.knowledge_base else ""
+
+            # Clear old frames
+            db.query(StoryboardFrame).filter(StoryboardFrame.project_id == project_id).delete()
+            db.commit()
+
+            total = len(scenes)
+            yield f"data: {_json.dumps({'type': 'start', 'total': total, 'genre': genre, 'style': storyboard_style})}\n\n"
+            logger.info(f"SSE: Starting stream for project {project_id} | {total} scenes | genre={genre}")
+
+            for i, scene in enumerate(scenes):
+                frame = await engine.analyze_single_scene(
+                    scene=scene, scene_index=i, total_scenes=total,
+                    genre=genre, style_guidance=style_guidance,
+                    visual_style=visual_style, wisdom_context=wisdom_context,
+                )
+                # Persist to DB
+                db_frame = StoryboardFrame(
+                    id=str(uuid.uuid4()), project_id=project_id,
+                    scene_number=frame['scene_number'], heading=frame.get('heading', ''),
+                    description=frame['description'], intensity_score=frame['intensity_score'],
+                    intensity_type=frame['intensity_type'], moment_summary=frame.get('moment_summary', ''),
+                    shot_type=frame.get('shot_type', ''), camera_movement=frame.get('camera_movement', ''),
+                    lens=frame.get('lens', ''), lighting=frame.get('lighting', ''),
+                )
+                db.add(db_frame)
+                db.commit()
+                db.refresh(db_frame)
+
+                frame['id'] = db_frame.id
+                event = {'type': 'frame', 'frame': frame, 'progress': {'current': i + 1, 'total': total}}
+                yield f"data: {_json.dumps(event)}\n\n"
+                logger.info(f"SSE: Streamed scene {i+1}/{total} to client")
+
+            GovernanceEngine.audit_generation(project_id, total, storyboard_style)
+            yield f"data: {_json.dumps({'type': 'complete', 'total': total})}\n\n"
+            logger.info(f"SSE: Stream complete for project {project_id}")
+
+        except Exception as e:
+            logger.error(f"SSE: Stream error for project {project_id}: {e}", exc_info=True)
+            yield f"data: {_json.dumps({'type': 'error', 'message': str(e)})}\n\n"
+        finally:
+            db.close()
+
+    return _SR(
+        event_stream(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "X-Accel-Buffering": "no",
+            "Connection": "keep-alive",
+        },
+    )
 
 @app.post("/frames/{frame_id}/generate-image")
 async def generate_frame_image(frame_id: str):

@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<FinalDraft DocumentType="Script" Template="No" Version="4">
+
+  <!--
+  ═══════════════════════════════════════════════════════════════════════════
+  FINAL DRAFT FDX — MASTER CLASS REFERENCE
+  "PAPER TRAIL"
+  
+  PARAGRAPH TYPES DEMONSTRATED:
+    Scene Heading   — INT./EXT. location headers
+    Action          — Description, atmosphere, behavior
+    Character       — Speaker identification (centered, ALL CAPS)
+    Dialogue        — Spoken lines
+    Parenthetical   — Actor direction, delivery note
+    Transition      — FADE IN:, SMASH CUT TO:, DISSOLVE TO:
+    Shot            — Specific camera direction embedded in script
+    General         — Non-standard block: title cards, supers, notes
+    Act Break       — ACT ONE, ACT TWO, END OF ACT markers
+  
+  ADVANCED ELEMENTS:
+    Dual dialogue   — via Character blocks marked side-by-side
+    SceneProperties — Scene timing and color markers (FDX v4+)
+    
+  STORY: A forensic archivist discovers that every document 
+  she's been hired to authenticate is real — and that the 
+  person who hired her doesn't want the truth to survive the night.
+  ═══════════════════════════════════════════════════════════════════════════
+  -->
+
+  <Content>
+
+    <!-- ═══ TRANSITION: OPEN ═══ -->
+    <Paragraph Type="Transition">
+      <Text>FADE IN:</Text>
+    </Paragraph>
+
+    <!-- ═══ ACT STRUCTURE ═══ -->
+    <Paragraph Type="Act Break">
+      <Text>ACT ONE</Text>
+    </Paragraph>
+
+    <!-- ═══ SCENE HEADING: Full format — INT/EXT, Location, Sub-location, Time ═══ -->
+    <Paragraph Type="Scene Heading">
+      <Text>INT. NATIONAL ARCHIVE — AUTHENTICATION LAB — NIGHT</Text>
+    </Paragraph>
+
+    <!-- ═══ GENERAL: Title card / SUPER ═══ -->
+    <Paragraph Type="General">
+      <Text>SUPER: "WASHINGTON D.C. — THREE WEEKS BEFORE THE HEARING"</Text>
+    </Paragraph>
+
+    <!-- ═══ ACTION: Scene establishment with atmosphere ═══ -->
+    <Paragraph Type="Action">
+      <Text>Silence, but for the hum of climate-controlled air. The lab is a cathedral of controlled conditions — temperature, humidity, light all dialed to the exact specifications that keep old paper alive.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>DR. NADIA CROSS (38, forensic archivist, the kind of precise that comes from caring too much for too long) sits under a single halogen lamp. Before her: a document encased in mylar. She handles it with cotton gloves and the focused attention of a surgeon.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>The document is a letter. Dated 1962. Signed by a president.</Text>
+    </Paragraph>
+
+    <!-- ═══ SHOT: Camera direction embedded in script ═══ -->
+    <Paragraph Type="Shot">
+      <Text>CLOSE ON — Nadia's eyes behind the magnifying loupe. The kind of focus that forgets to blink.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Action">
+      <Text>She types a single line into her laptop:</Text>
+    </Paragraph>
+
+    <!-- ═══ GENERAL: On-screen text / INSERT ═══ -->
+    <Paragraph Type="General">
+      <Text>INSERT — LAPTOP SCREEN: "AUTHENTICATION STATUS: CONFIRMED — PROVENANCE INTACT — CHAIN OF CUSTODY: VERIFIED"</Text>
+    </Paragraph>
+
+    <Paragraph Type="Action">
+      <Text>She stares at the word CONFIRMED for a long time. Then she reaches for her phone.</Text>
+    </Paragraph>
+
+    <!-- ═══ CHARACTER with extension ═══ -->
+    <Paragraph Type="Character">
+      <Text>NADIA (INTO PHONE)</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>It's real. Every document in the collection. I've run every test available and then some I invented this morning. They're all authentic.</Text>
+    </Paragraph>
+
+    <!-- ═══ GENERAL: Phone voice / intercut ═══ -->
+    <Paragraph Type="General">
+      <Text>INTERCUT WITH:</Text>
+    </Paragraph>
+
+    <!-- ═══ SCENE HEADING: Second location for intercut ═══ -->
+    <Paragraph Type="Scene Heading">
+      <Text>INT. PRIVATE CLUB — MEMBER'S STUDY — NIGHT</Text>
+    </Paragraph>
+
+    <Paragraph Type="Action">
+      <Text>SENATOR ALDOUS CRANE (70s, the bearing of a man who has never been told no and has arranged the world accordingly) holds a crystal glass he is not drinking from. His face does not move.</Text>
+    </Paragraph>
+
+    <!-- ═══ CHARACTER + PARENTHETICAL + DIALOGUE ═══ -->
+    <Paragraph Type="Character">
+      <Text>SENATOR CRANE</Text>
+    </Paragraph>
+    <Paragraph Type="Parenthetical">
+      <Text>(very carefully)</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>All of them.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Character">
+      <Text>NADIA</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Every single one. Senator, what you have is the most significant collection of primary source documents since the Pentagon Papers. If these go public —</Text>
+    </Paragraph>
+
+    <Paragraph Type="Character">
+      <Text>SENATOR CRANE</Text>
+    </Paragraph>
+    <Paragraph Type="Parenthetical">
+      <Text>(interrupting, quiet as a verdict)</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>They won't.</Text>
+    </Paragraph>
+
+    <!-- ═══ TRANSITION: Abrupt ═══ -->
+    <Paragraph Type="Transition">
+      <Text>SMASH CUT TO:</Text>
+    </Paragraph>
+
+    <!-- ═══ SCENE HEADING: New location ═══ -->
+    <Paragraph Type="Scene Heading">
+      <Text>INT. NATIONAL ARCHIVE — AUTHENTICATION LAB — MOMENTS LATER</Text>
+    </Paragraph>
+
+    <!-- ═══ ACTION: Visual storytelling — behavior without dialogue ═══ -->
+    <Paragraph Type="Action">
+      <Text>The lab is dark. Every light off. The hallway door ajar, a knife of corridor light across the floor.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Nadia has not moved. But something in her has shifted. She sets the phone down with the deliberate care of someone deciding what kind of person she is going to be for the rest of her life.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>She opens the document case. Removes the letter. Places it flat on the scanner.</Text>
+    </Paragraph>
+
+    <!-- ═══ SHOT: Specific lens instruction ═══ -->
+    <Paragraph Type="Shot">
+      <Text>ECU — The scanner light passing beneath the letter. Blue-white. Clinical. Permanent.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Action">
+      <Text>The scan completes. She opens her email. Types an address she has memorized but never used: a journalist she trusts.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Her finger hovers over SEND.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>The door opens wider. FOOTSTEPS. Two sets.</Text>
+    </Paragraph>
+
+    <!-- ═══ ACT BREAK ═══ -->
+    <Paragraph Type="Act Break">
+      <Text>END OF ACT ONE</Text>
+    </Paragraph>
+
+    <Paragraph Type="Act Break">
+      <Text>ACT TWO</Text>
+    </Paragraph>
+
+    <!-- ═══ SCENE HEADING: Continuation ═══ -->
+    <Paragraph Type="Scene Heading">
+      <Text>INT. NATIONAL ARCHIVE — AUTHENTICATION LAB — CONTINUOUS</Text>
+    </Paragraph>
+
+    <!-- ═══ ACTION: Tension — physical economy ═══ -->
+    <Paragraph Type="Action">
+      <Text>Two MEN IN SUITS. The kind of suits that mean federal authority or its precise opposite, and Nadia has learned that the difference matters less than people think.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>She does not turn around. She presses SEND.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Then she closes the laptop and turns to face them.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Character">
+      <Text>NADIA</Text>
+    </Paragraph>
+    <Paragraph Type="Parenthetical">
+      <Text>(the calm of someone who has already made the irreversible choice)</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>You're going to want to call a lawyer. Both of you. Separately.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Character">
+      <Text>SUIT #1</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Dr. Cross, we're here to —</Text>
+    </Paragraph>
+
+    <Paragraph Type="Character">
+      <Text>NADIA</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>The documents have been authenticated, scanned, and transmitted to three separate servers in two countries and a journalist who has been waiting eleven years for exactly this kind of Tuesday evening. So whatever you were sent here to do — you're about forty-five seconds too late.</Text>
+    </Paragraph>
+
+    <!-- ═══ ACTION: Beat — the silence that does the work ═══ -->
+    <Paragraph Type="Action">
+      <Text>The two men look at each other. In that look: the arithmetic of a mission that has just become a disaster.</Text>
+    </Paragraph>
+
+    <!-- ═══ SHOT: Reaction close-up ═══ -->
+    <Paragraph Type="Shot">
+      <Text>CLOSE ON — Nadia's hands. Perfectly still. The cotton gloves still on. She looks down at them as though seeing her own hands for the first time.</Text>
+    </Paragraph>
+
+    <!-- ═══ GENERAL: Dual voice / overlapping ═══ -->
+    <Paragraph Type="General">
+      <Text>DUAL DIALOGUE — simultaneous:</Text>
+    </Paragraph>
+
+    <Paragraph Type="Character">
+      <Text>SUIT #1</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>You need to come with us, Doctor.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Character">
+      <Text>NADIA</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>I know. I've been ready for a while.</Text>
+    </Paragraph>
+
+    <!-- ═══ ACTION: Exit — visual period at end of the sentence ═══ -->
+    <Paragraph Type="Action">
+      <Text>She removes the cotton gloves. Places them beside the empty document case. Tucks the laptop under her arm.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>She walks out between them with the posture of a person who has done the thing she was born to do.</Text>
+    </Paragraph>
+
+    <!-- ═══ SCENE HEADING: Exterior establishing aftermath ═══ -->
+    <Paragraph Type="Scene Heading">
+      <Text>EXT. NATIONAL ARCHIVE — NIGHT</Text>
+    </Paragraph>
+
+    <Paragraph Type="Action">
+      <Text>The great building behind her. The marble lit from below, massive and indifferent as history. Nadia gets into the waiting vehicle. The door closes.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Somewhere, a phone begins to ring. Then another. Then dozens.</Text>
+    </Paragraph>
+
+    <!-- ═══ GENERAL: Title card ═══ -->
+    <Paragraph Type="General">
+      <Text>SUPER: "THE DOCUMENTS WERE PUBLISHED SIX HOURS LATER."</Text>
+    </Paragraph>
+    <Paragraph Type="General">
+      <Text>SUPER: "THE SENATOR RESIGNED BEFORE MORNING."</Text>
+    </Paragraph>
+    <Paragraph Type="General">
+      <Text>SUPER: "DR. CROSS SPENT FOURTEEN MONTHS IN A FEDERAL FACILITY."</Text>
+    </Paragraph>
+    <Paragraph Type="General">
+      <Text>SUPER: "SHE HAS NO REGRETS."</Text>
+    </Paragraph>
+
+    <!-- ═══ TRANSITION: CLOSE ═══ -->
+    <Paragraph Type="Transition">
+      <Text>FADE TO BLACK.</Text>
+    </Paragraph>
+
+    <!-- ═══ ACT BREAK: END ═══ -->
+    <Paragraph Type="Act Break">
+      <Text>END OF SCRIPT</Text>
+    </Paragraph>
+
+  </Content>
+
+</FinalDraft>

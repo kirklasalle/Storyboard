@@ -1,0 +1,390 @@
+THE SURVEYOR'S DAUGHTER
+A Play in Two Acts
+
+================================================================================
+MASTER CLASS: Stage Play Format — Every Element Demonstrated
+Format: Full stage play with complete production grammar
+Every direction, notation, and structural element is shown in context.
+The writing teaches through specificity and restraint.
+================================================================================
+
+PLAYWRIGHT'S NOTES
+
+This play requires nothing but two chairs, two actors, and light that
+knows how to change. The set, if there is one, should suggest rather
+than state. The audience's imagination is the production designer.
+
+The stage directions are written to be read, not just executed. A
+director who reads them carefully will find the production inside them.
+
+The play's subject is the inheritance of silence — what parents pass
+to children not through words but through the quality of their attention,
+their absences, and the specific way they hold things they cannot say.
+
+RUNNING TIME: Approximately 95 minutes with intermission.
+
+================================================================================
+
+CHARACTERS
+
+NORA CLEMENT — 42. An engineer. She builds bridges. The precision required
+    for that work lives in every aspect of her person. She does not do
+    anything carelessly. This includes loving her father. This includes
+    grief, which she is new to and which she is approaching with the same
+    rigor she would bring to a structural problem.
+
+LEONARD CLEMENT — 74. Her father. A land surveyor for fifty years. He
+    measured the world with instruments and found it, in the end, impossible
+    to measure the things that mattered most. He has a diagnosis. He is
+    still more present than most people who don't.
+
+    NOTE: Leonard should never be played as a diminished man. He is changed.
+    He is still entirely himself in the ways that count.
+
+SETTING
+
+A house that has been lived in for forty years. Not a museum of that
+life — a working house, worn in the right places, lit in the specific
+amber of late afternoon through old windows.
+
+A single significant prop: a wooden surveying instrument, old, on the
+mantelpiece. It has been there for forty years. Nora has always known
+what it is. She has never asked where it came from.
+
+================================================================================
+
+ACT ONE
+
+SCENE 1
+
+[Lights rise on the sitting room. Late afternoon. The amber we promised.
+LEONARD sits in an armchair, his back to the audience, looking at something
+outside the window we cannot see. He has been sitting this way for some time.
+
+NORA enters from upstage right. She carries a bag — work, not luggage.
+She is passing through. She had not planned to stop.
+
+She sees her father. She stops.
+
+She sets her bag down — upstage, out of the way. She makes no sound.
+
+She watches him watch the window.
+
+This holds for a full seven seconds. The audience should be made to feel
+the weight of this duration. Nora is measuring something.]
+
+NORA: (Quietly, so as not to startle.) Dad.
+
+LEONARD: (He doesn't turn. He knew she was there.) The light does something
+    particular today. Have you noticed?
+
+[NORA moves downstage left. Not to him. To a place where she can see
+what he sees. She looks at the window.]
+
+NORA: I see it.
+
+LEONARD: It's the angle. This time of year, this time of day. I measured it
+    once. Twenty-three degrees off horizontal. It makes everything look
+    like it's about to be remembered.
+
+NORA: (A pause. She does not dismiss this.) What were you thinking about?
+
+LEONARD: (Finally turning to look at her.) I was thinking that you came
+    because you're worried, and that you're not going to say so, and that
+    I'm going to let you not say so, and that we're going to have a perfectly
+    good afternoon regardless.
+
+[Nora looks at him.]
+
+NORA: (Simply.) You know me very well.
+
+LEONARD: Forty-two years of study.
+
+================================================================================
+        ELEMENT: ASIDE — character addresses audience directly,
+                         other characters cannot hear
+================================================================================
+
+[Leonard turns back to the window. Nora looks at the audience — not
+performing for them, finding them. Speaking from inside the moment,
+not outside it.]
+
+NORA: (Aside — quietly, as if thinking aloud.)
+    He was diagnosed in February. I flew home in March. And April. This
+    is May. I tell myself each visit that I'm going to say what I came to
+    say. I have a list. Not a literal list. The kind you carry in the body.
+
+[She turns back. Leonard is still at the window. Nothing has changed
+except that we know more now.]
+
+================================================================================
+        ELEMENT: Stage Directions — physical geography
+                 US = Upstage (away from audience)
+                 DS = Downstage (toward audience)
+                 SL = Stage Left (actor's left)
+                 SR = Stage Right (actor's right)
+                 CS = Center Stage
+================================================================================
+
+[Nora moves CS. She picks up the surveying instrument from the mantelpiece.
+She turns it over in her hands. She has picked this up before — maybe
+a hundred times — and always put it back without asking.
+
+Leonard sees her with it in his peripheral vision. He does not turn. He
+waits.]
+
+NORA: Where did this come from?
+
+LEONARD: (A long beat before answering.) Your grandfather's house. When
+    he died, it was the only thing I took.
+
+NORA: You never told me that.
+
+LEONARD: You never asked.
+
+[A fair point. She holds it.]
+
+NORA: What did he use it for?
+
+LEONARD: He was a surveyor before me. His father before him. It was our
+    family's work before it was my work. Three generations of men measuring
+    the distance between one place and another.
+
+[He finally turns to look at her. There is something he is moving toward
+saying, and he is taking the route he has always taken to difficult
+things: the long way around, through the specifics.]
+
+LEONARD: Your grandmother said it was the family curse. That the men in
+    our line could measure anything except what was right in front of them.
+
+================================================================================
+        ELEMENT: SOLILOQUY — character speaks to themselves, alone onstage
+================================================================================
+
+[A knock at the door. Nora goes to answer it. While she is gone, Leonard
+is alone. He stands. He moves to CS. He holds the surveying instrument
+that she has replaced. He speaks to no one. To the air. To the room.]
+
+LEONARD: (Soliloquy — to himself and to the history of the room.)
+    My father never told me he was proud of me. I always thought that meant
+    he wasn't. I was fifty-three years old before I understood that it meant
+    he didn't know how.
+
+    [He looks at the instrument.]
+
+    I told Nora I was proud of her three times. I remember each one.
+    I thought that was enough. I don't think it was enough.
+
+    [He puts the instrument back on the mantelpiece.]
+
+    I have a finite amount of time to make a different accounting.
+
+[NORA returns. Leonard has returned to his chair. She doesn't know what
+she missed. The audience does.]
+
+================================================================================
+        ELEMENT: Lighting Direction — embedded in stage direction
+================================================================================
+
+[The light shifts — the twenty-three degrees Leonard described — and for
+a moment the room is all amber and long shadow. The lighting designer
+should have been waiting for this moment since the top of the play.
+This is their line.]
+
+NORA: (Looking at the light.) Oh. I see what you meant.
+
+LEONARD: There it is.
+
+[The amber holds for ten full seconds.]
+
+NORA: (Very quietly.) I'm worried about you.
+
+LEONARD: (After a moment.) I know.
+
+NORA: I should have said it when I arrived.
+
+LEONARD: You said it when you were ready. That's when things should be said.
+
+INTERMISSION
+
+================================================================================
+
+ACT TWO
+
+SCENE 1
+
+================================================================================
+        ELEMENT: Scene setting — time change, physical change
+================================================================================
+
+[The same room. LATER. EVENING. The amber has given way to the blue of
+dusk and then the darker blue of early night. Two lamps now — the room
+is smaller, more intimate. The world outside the window has gone.
+
+Leonard and Nora sit. Between them, on the coffee table, the surveying
+instrument. At some point in the interval they have moved it from the
+mantelpiece to the table between them. Neither of them may know when.
+
+The conversation has been going on. We arrive in the middle of it,
+which is where the real part of any conversation lives.]
+
+LEONARD: The longest survey I ever ran was the eastern boundary of the
+    Ardmore land grant. Forty-seven miles. Seventeen days. I was thirty-one.
+
+NORA: I didn't know about that one.
+
+LEONARD: There was a section — day eleven — where I was completely certain
+    I'd made an error on day two. Nine days of good work, potentially wrong.
+
+NORA: What did you do?
+
+LEONARD: I went back to day two.
+
+NORA: All the way back.
+
+LEONARD: All the way back.
+
+[A pause.]
+
+NORA: Was there an error?
+
+LEONARD: (A small smile.) No. Day two was right. Everything I'd built on
+    it was right. I'd just been standing too close on day eleven to see
+    the whole picture.
+
+NORA: (She understands this is not about surveying.) What are you telling me?
+
+LEONARD: (Simply.) That everything you've built on what I gave you —
+    you built it right. The foundation was sound. I wasn't always sure,
+    watching you. I am sure now.
+
+================================================================================
+        ELEMENT: Sound Cue — embedded in stage direction
+================================================================================
+
+[Sound: from outside — a low, distant thunder. Not a storm. The suggestion
+of one. The sound design should use this sparingly. The thunder should
+feel like punctuation, not atmosphere.]
+
+[Nora looks at her father for a long moment.]
+
+NORA: (Her voice doing something unusual — finding the direct route.)
+    I need you to tell me things. While you still — while we still have
+    time to have these conversations. Things I don't know. Things about
+    you, about us. Things you think I know but I don't.
+
+LEONARD: That's a large request.
+
+NORA: I have two days.
+
+[He considers this.]
+
+LEONARD: Then you'd better stay the night.
+
+[This is settled. Not with ceremony. With the simplicity of two people
+who have just decided something important and do not need to decorate it.]
+
+NORA: (Standing — moving to SL, to the window.) Tell me about the Ardmore
+    survey. From the beginning. Day one.
+
+[Leonard settles into his chair. He finds the posture of a man about to
+tell a story he has wanted to tell for a long time.
+
+The lamp light holds them.
+
+Outside, no rain yet. Just the possibility of it.]
+
+LEONARD: Day one. I drove up before dawn so I'd arrive with the light.
+    The land was flat in a way that makes you understand why people once
+    thought the world was flat — it just goes, in every direction, to the
+    horizon, with the specific patience of something that has been here
+    much longer than you and will be here much longer still...
+
+================================================================================
+        ELEMENT: Sound Cue — scene close
+================================================================================
+
+[Sound: The first rain. Not heavy. A beginning. It arrives as Leonard
+speaks, as if the sky has been listening and has found, at last, a reason
+to respond.
+
+The lights dim slowly. Not to black. To a warm dark. The kind of dark
+that contains something continuing.]
+
+BLACKOUT.
+
+END OF PLAY
+
+================================================================================
+        ELEMENT: Technical notes — for production
+================================================================================
+
+SOUND DESIGN NOTES:
+  The thunder in Act Two, Scene 1 should arrive between lines, not under them.
+  Rain: real recorded rain, not synthesized. The difference is audible.
+  At no point should sound be decorative. Every cue is a word.
+
+LIGHTING NOTES:
+  The amber shift in Act One is the most important single lighting moment.
+  Everything else in the design serves or echoes it.
+  Act Two should feel as though a filter has been removed. The light is cooler,
+  truer. The room is the same room seen differently.
+
+STAGING NOTE:
+  The surveying instrument must be on the mantelpiece when the audience enters.
+  Every audience member who notices it before the play begins is already inside
+  the story.
+
+================================================================================
+STAGE PLAY ELEMENT REFERENCE — COMPLETE INDEX
+================================================================================
+
+STRUCTURAL ELEMENTS:
+  PROLOGUE              Before Act One — sets theme, not story
+  ACT ONE / ACT TWO     Primary structural divisions
+  SCENE 1 / SCENE 2     Subdivisions within acts
+  INTERMISSION          Pause between acts — a structural element, not a break
+  EPILOGUE              After final scene — reflection, not resolution
+  END OF PLAY           Final notation
+
+PAGE GEOGRAPHY:
+  US    Upstage — away from audience, toward backdrop
+  DS    Downstage — toward audience
+  SL    Stage Left — actor's left when facing audience
+  SR    Stage Right — actor's right when facing audience
+  CS    Center Stage
+  USR   Upstage Right
+  USL   Upstage Left
+  DSR   Downstage Right
+  DSL   Downstage Left
+
+CHARACTER DIRECTIONS:
+  ASIDE           Character speaks to audience; others cannot hear
+  SOLILOQUY       Character alone onstage, speaking to self/air/audience
+  PARENTHETICAL   (quietly), (standing), (to himself) — performance note
+  Beat / Pause    Duration of silence — beat is shorter, pause is held
+
+EMBEDDED STAGE DIRECTIONS:
+  [Action in brackets] — standard stage direction
+  Lighting cues — noted within action (not as separate technical lines)
+  Sound cues — noted within action
+  Physical movement — CS, SL, SR, US, DS noted in directions
+
+PRODUCTION NOTES:
+  Playwright's Notes    Opening — intent, approach, performance guidance
+  Technical Notes       End of play — sound, lighting, staging specifics
+
+CHARACTER LIST:
+  Name — Age. Essence description. Not physical description.
+  Physical description is the director's province.
+  The playwright provides the interior. The production provides the exterior.
+
+CRAFT PRINCIPLES DEMONSTRATED:
+  — Stage directions describe action AND meaning simultaneously
+  — Physical geography is emotional geography
+  — Asides break the fourth wall surgically, not decoratively
+  — Soliloquy requires true solitude — must earn the form
+  — Silence is written, not left; a "beat" is a line
+  — The set note is the thematic statement
+  — What props are onstage before the play begins is dramaturgy
+================================================================================

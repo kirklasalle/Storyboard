@@ -17,3 +17,4 @@ httpx
 pdfplumber
 python-docx
 lxml
+cryptography

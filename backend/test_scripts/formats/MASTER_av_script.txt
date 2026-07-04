@@ -1,0 +1,307 @@
+AUDIO/VISUAL SCRIPT
+================================================================================
+Title:      THE HOUR BEFORE DAWN
+            A Short Documentary Film
+Format:     Full A/V Two-Column — Master Class
+Producer:   Storyboard AI Demo
+Director:   TBD
+Runtime:    Approx. 8 minutes
+Draft:      July 3, 2026
+Version:    Production Draft
+================================================================================
+MASTER CLASS: Every A/V format element demonstrated.
+Subject: Emergency room nurses — the overnight shift at a public hospital.
+The story is told through action and silence. The narration arrives
+late, after the images have already made their argument.
+================================================================================
+
+PRODUCTION NOTES:
+All interview footage: available light only, no supplemental lighting.
+B-roll: documentary style, handheld, participant-unaware where possible.
+Music: sparse, single instrument. Should feel earned, not decorative.
+Lower thirds: appear and dissolve slowly. Never interrupt a held moment.
+
+================================================================================
+PAGE 1 OF 8
+================================================================================
+
+TIMECODE | VIDEO                              | AUDIO
+---------|------------------------------------|---------------------------------
+         |                                    |
+00:00:00 | FADE FROM BLACK.                   | SILENCE.
+         |                                    |
+         | BLACK SCREEN.                      | The silence is complete.
+         |                                    | Hold it four full seconds.
+         |                                    | This is intentional.
+         |                                    |
+00:00:04 | TITLE CARD: "The Hour Before Dawn" | MUSIC IN — single cello.
+         | White text, minimal font.          | Low. Unhurried.
+         | Held on black for 3 seconds.       | The note does not resolve.
+         |                                    |
+00:00:07 | FADE IN:                           | MUSIC CONTINUES under.
+         |                                    |
+         | EXT. HOSPITAL — NIGHT             | AMBIENT SOUND:
+         | Wide establishing shot.            | City at 3 AM. Distant siren.
+         | The building is lit from within.   | Someone coughing, far off.
+         | Every other building dark.         | A truck on wet asphalt.
+         | Time stamp: 03:00 AM.              |
+         |                                    |
+00:00:14 | INT. HOSPITAL — MAIN CORRIDOR     | AMBIENT SOUND CONTINUES.
+         | Handheld. Nursing station ahead.   | Footsteps on linoleum.
+         | A long corridor, fluorescent.      | The specific hum of a
+         | Empty except for one figure.       | hospital's machinery.
+         |                                    |
+00:00:22 | NURSE AMARA OSEI (38) walks        | MUSIC FADES.
+         | toward camera.                     |
+         | She does not look at the camera.   | AMARA (O.S. — to colleague
+         | She is reading a chart. Moving.    | off camera, sync sound):
+         | Both simultaneously. Without       | Bed seven is back. Blood
+         | effort. This is her element.       | pressure holding. Let Dr.
+         |                                    | Ferreira know when she's
+         |                                    | next available.
+         |                                    |
+         | LOWER THIRD:                       |
+         | "AMARA OSEI                        |
+         |  Emergency Room Nurse, 12 years"   |
+         | (Hold 4 seconds, then dissolve)    |
+         |                                    |
+00:00:37 | INT. HOSPITAL — BED 7 — NIGHT     | SFX: Heart monitor.
+         | A patient. Late 60s, male.         | Steady. Deliberate rhythm.
+         | Sleeping now. The monitors         | This sound is life, measured
+         | around him are the night watch.    | in intervals.
+         |                                    |
+         | INSERT — MONITOR DISPLAY:          | MUSIC: Returns. Slightly
+         | Heart rate: 62. O2: 97%.           | warmer now. Same cello.
+         | Numbers that mean: still here.     |
+         |                                    |
+         | BACK TO — BED 7 WIDE               | AMARA (V.O.):
+         | Amara checks the IV line.          | There's a thing that happens
+         | Her hands are very sure.           | around three in the morning.
+         | The patient doesn't wake.          | The whole hospital changes
+         |                                    | frequency. The day nurses
+         |                                    | would say we're imagining it.
+         |                                    | We're not.
+         |                                    |
+================================================================================
+PAGE 2 OF 8
+================================================================================
+
+TIMECODE | VIDEO                              | AUDIO
+---------|------------------------------------|---------------------------------
+         |                                    |
+00:01:02 | INT. BREAK ROOM — NIGHT            | AMBIENT SOUND:
+         | INTERVIEW SETUP — available light. | HVAC. Coffee machine.
+         | Amara sits in a plastic chair.     | The building breathing.
+         | Behind her: vending machines,      |
+         | a corkboard covered in shift       |
+         | schedules, someone's child's       |
+         | drawing taped to the wall.         |
+         |                                    |
+         | CAMERA: Static. Medium close.      | AMARA (sync sound, interview):
+         | She looks slightly off-lens.       | I've been here twelve years
+         | Her uniform still on.              | and I still can't explain what
+         | End-of-shift exhaustion in her     | happens to my body when I
+         | eyes that looks almost like calm.  | walk into this building.
+         |                                    | It's not adrenaline anymore.
+         |                                    | It's something quieter than
+         |                                    | that. Like... recognition.
+         |                                    |
+00:01:24 | B-ROLL SEQUENCE:                   | AMARA (V.O., continues):
+         | — Hands performing tasks.          | We see people on the worst
+         |   IV lines. Blood pressure cuffs.  | night of their lives. And
+         |   Adjusting oxygen flow.           | the best thing we can do —
+         | — A door opening to an exam room.  | the actual best thing — is
+         | — Two nurses conferring over       | make the night feel slightly
+         |   a chart, heads together.         | less large.
+         | — The empty nurses station at      |
+         |   3:47 AM. One cup of coffee.      |
+         |   Half-full. Getting cold.         |
+         |                                    |
+00:01:48 | CUTAWAY:                           | SFX: Automatic doors. WHOOSH.
+         | The ER entrance. Automatic doors   | AMBIENT: Night outside.
+         | open. A gurney comes in fast.      | Running feet. Urgent voices,
+         | Paramedics. A patient.             | indistinct.
+         | Amara moves toward it without      |
+         | running. Her speed is in her       | MUSIC: Drops entirely.
+         | efficiency, not her pace.          |
+         |                                    |
+00:02:01 | INT. TRAUMA BAY — CONTINUOUS       | SYNC SOUND — AMBIENT:
+         | The team assembles.                | Medical equipment. Voices
+         | This is not drama. This is work.   | giving and receiving
+         | The distinction matters entirely.  | information. No noise.
+         |                                    | No fear in the voices.
+         |                                    | Precision is the antidote
+         |                                    | to fear.
+         |                                    |
+         | GRAPHIC: "NAMES OF TRAUMA BAY     | (NO NARRATION during this
+         | TEAM NOT INCLUDED — PRIVACY        |  sequence. Let the work
+         | COMPLIANCE — DO NOT SUPER"         |  speak for itself.)
+         |                                    |
+00:02:24 | INT. TRAUMA BAY — LATER            | MUSIC: Returns very quietly.
+         | The urgency has resolved.          |
+         | The patient is stable.             | AMARA (V.O.):
+         | The team disperses with the        | People ask if we get used
+         | economy of people who have         | to it. The answer is no.
+         | finished a task.                   | The answer is something more
+         |                                    | useful than that: we get
+         | Amara at the sink. Washing hands.  | better at staying present
+         | Watching nothing. Present.         | while it's happening.
+         |                                    |
+================================================================================
+PAGE 3 OF 8
+================================================================================
+
+TIMECODE | VIDEO                              | AUDIO
+---------|------------------------------------|---------------------------------
+         |                                    |
+00:02:48 | INTERCUT SEQUENCE:                 |
+         | Three nurses. Three moments.       |
+         | Cut between them in rhythm.        |
+         |                                    |
+         | — AMARA: charting at a terminal.  | AMARA (V.O.):
+         |   Fluorescent light. 4:15 AM.     | There are three of us on
+         |                                    | tonight who've been doing
+         | — NURSE IBRAHIM (late 20s,        | this more than ten years.
+         |   second year in the ER): A       |
+         |   patient's hand, squeezing his.  | IBRAHIM (V.O.):
+         |   He doesn't pull away.           | I learned more from my
+         |                                    | first year than from any
+         | — NURSE CLARA (50s, 22 years):    | class I ever took.
+         |   Standing in the corridor,        |
+         |   looking at nothing. Her version  | CLARA (V.O.):
+         |   of rest.                         | The job teaches you. If
+         |                                    | you let it teach you.
+         |                                    |
+         | LOWER THIRDS (as each appears):    |
+         | "IBRAHIM HASSAN                    |
+         |  Emergency Room Nurse, 2 years"    |
+         |                                    |
+         | "CLARA MENDES                      |
+         |  Emergency Room Nurse, 22 years"   |
+         |                                    |
+00:03:45 | EXT. HOSPITAL — LOADING DOCK      | AMBIENT: City, pre-dawn.
+         | 5:30 AM. The sky shows the first  | A bird, far off.
+         | suggestion of change. Not dawn.    | The sound of things that
+         | The hour before dawn.              | are about to wake.
+         |                                    |
+         | Amara outside. Five minutes.       | MUSIC: Resolves, finally.
+         | Her face toward the east.          | The note lands.
+         | She doesn't check her phone.       |
+         | She is simply outside.             | AMARA (V.O.):
+         | Simply present.                    | I used to think the night
+         |                                    | shift was about endurance.
+         |                                    | Now I think it's about
+         |                                    | presence. You're awake
+         |                                    | when the world is most
+         |                                    | itself. Most unguarded.
+         |                                    | There's a privilege in that
+         |                                    | that I don't take lightly.
+         |                                    |
+00:04:12 | INT. HOSPITAL — NURSING STATION   | AMBIENT FADES.
+         | The day shift arrives.             |
+         | The handoff: charts, patients,     | SYNC SOUND:
+         | updates. Two worlds in brief       | Professional exchange. Names.
+         | overlap before one yields to       | Numbers. Instructions.
+         | the other.                         |
+         |                                    |
+00:04:35 | Amara collects her things.         | MUSIC: Final theme. Minimal.
+         | Jacket. Keys. The particular       |
+         | deliberateness of someone who is   | AMARA (V.O.):
+         | transitioning out of one mode of   | I'll sleep today. Tonight
+         | being into another.                | I'll do it again.
+         |                                    | That's the whole of it,
+         | She pauses at the door.            | really. Show up. Stay
+         | Looks back once — not at           | present. Do what you can.
+         | anything specific. At the place.   | Go home. Come back.
+         |                                    |
+00:05:02 | The automatic doors open for her.  | SFX: Doors opening.
+         | She walks out into the pre-dawn.   |
+         |                                    | AMBIENT: City waking.
+         | The doors close.                   | More birds now. Traffic
+         |                                    | beginning. A distant radio.
+         | The doors stay closed.             |
+         |                                    |
+00:05:20 | EXT. HOSPITAL — PARKING LOT        | MUSIC HOLDS.
+         | Amara walks to her car.            |
+         | She doesn't rush.                  | (NO NARRATION)
+         | The distance between the building  |
+         | and the car is her decompression.  |
+         | We watch her cross it.             |
+         |                                    |
+00:05:42 | WIDE SHOT — HOSPITAL EXTERIOR     | MUSIC: Final resolution.
+         | Amara's car exits the parking lot. |
+         | The building remains.              |
+         | Lights on inside.                  |
+         | The work continues.                |
+         |                                    |
+00:06:00 | FADE TO BLACK.                     | MUSIC FADES.
+         |                                    |
+00:06:05 | TITLE CARD:                        | SILENCE RETURNS.
+         | "In the United States,             |
+         |  emergency room nurses work an     |
+         |  average of 12-hour shifts.        |
+         |  The overnight staff —             |
+         |  often called 'the night team' —  |
+         |  handle up to 40% of all          |
+         |  emergency admissions."            |
+         |                                    |
+00:06:25 | GRAPHIC: Acknowledgments.          |
+         | Names of participating staff.      |
+         | Hospital name and logo.            |
+         | IRB approval number.               |
+         |                                    |
+00:06:40 | FADE TO BLACK.                     | MUSIC: Single cello note.
+         |                                    | Sustained. Then gone.
+         |                                    |
+00:06:55 | END OF FILM                        | SILENCE.
+         |                                    |
+================================================================================
+A/V FORMAT ELEMENT REFERENCE — COMPLETE INDEX
+================================================================================
+
+STRUCTURAL COLUMNS:
+  TIMECODE       HH:MM:SS — running clock from FADE IN
+  VIDEO          Visual direction: shot description, camera notes, on-screen
+                 text, graphics, lower thirds, B-roll, inserts
+  AUDIO          All audio: narration, sync sound, V.O., music, SFX, ambient
+
+VIDEO ELEMENTS:
+  Wide shot      Establishing, geographic, contextual
+  Medium shot    Character in environment, relationship visible
+  Close-up       Detail, face, specific object
+  Insert         Specific object filling frame (chart, monitor, phone screen)
+  B-Roll         Supplementary footage over narration — action, environment
+  Cutaway        Brief departure from main scene — context, counterpoint
+  Intercut       Alternating between two or more locations
+  GRAPHIC        Full-screen text, logo, animation, map, chart
+  LOWER THIRD    Name/title super in lower portion of frame
+  Slow motion    Noted with (SLOW MO) in video column
+  Time lapse     Noted with (TIME LAPSE) in video column
+
+AUDIO ELEMENTS:
+  NARRATOR (V.O.)   Off-screen narration — first or third person
+  SYNC SOUND        Live audio from the scene — ambient, dialogue, action
+  V.O.              Character voice over — heard but not seen
+  O.S.              Off screen — character present but not visible
+  INTERVIEW (sync)  Subject speaking to interviewer on camera
+  AMBIENT           Environmental sound — room tone, city, nature
+  SFX               Specific sound effect — door, machine, footstep
+  MUSIC IN/OUT      Underscore — specify instrument, mood, tempo
+  MUSIC STING       Short sharp musical accent
+  MUSIC HOLD        Music sustained under silence
+  MUSIC FADES       Gradual exit of music
+  SILENCE           Deliberate absence of sound — a direction, not an absence
+
+PACING DIRECTIONS:
+  Hold X seconds    Specific duration for a static image
+  (NO NARRATION)    Deliberate silence — let the image carry
+  (Let breathe)     Don't cut — the moment is still developing
+
+CRAFT PRINCIPLES:
+  — Narration arrives after image has made its argument
+  — Silence is a direction, not an oversight
+  — B-roll should contradict, expand, or deepen — never merely illustrate
+  — Lower thirds appear and dissolve — they never interrupt a held moment
+  — The (NO NARRATION) direction is one of the most powerful in documentary
+  — Music earns its presence — every entry and exit is a choice
+================================================================================

@@ -44,6 +44,8 @@ export const StoryboardGallery: React.FC<StoryboardGalleryProps> = ({ projectId,
     const [notification, setNotification] = useState<ImageGenNotification | null>(null);
     const [imageStatus, setImageStatus] = useState<ImageStatus | null>(null);
     const [showModelPanel, setShowModelPanel] = useState(false);
+    const [streamProgress, setStreamProgress] = useState<{ current: number; total: number } | null>(null);
+    const [streamGenre, setStreamGenre] = useState<string | null>(null);
 
     // Fetch image status on mount
     useEffect(() => {
@@ -88,29 +90,62 @@ export const StoryboardGallery: React.FC<StoryboardGalleryProps> = ({ projectId,
     const handleGenerate = async () => {
         setStatus('generating');
         setError(null);
+        setFrames([]);
+        setStreamProgress(null);
+        setStreamGenre(null);
+
         try {
-            const resp = await fetch(`${API_BASE}/projects/${projectId}/generate`, {
+            const resp = await fetch(`${API_BASE}/projects/${projectId}/generate-stream`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(config || { type: 'openai', api_key: '' })
             });
-            const data = await resp.json();
-            if (resp.ok) {
-                if (Array.isArray(data) && data.length === 0) {
-                    setStatus('error');
-                    setError('The AI could not identify any scenes or moments in this document. Try uploading a different script or story.');
-                } else {
-                    setFrames(data);
-                    setStatus('success');
-                    // Refresh image status after generation
-                    fetchImageStatus();
-                }
-            } else {
+
+            if (!resp.ok || !resp.body) {
+                const data = await resp.json().catch(() => ({}));
                 setStatus('error');
-                setError(data.detail || data.error || 'Generation failed. Check your AI provider configuration.');
+                setError(data.detail || data.error || 'Generation failed.');
+                return;
             }
+
+            const reader = resp.body.getReader();
+            const decoder = new TextDecoder();
+            let buffer = '';
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                buffer += decoder.decode(value, { stream: true });
+                const lines = buffer.split('\n');
+                buffer = lines.pop() || '';
+
+                for (const line of lines) {
+                    if (!line.startsWith('data: ')) continue;
+                    try {
+                        const event = JSON.parse(line.slice(6));
+                        if (event.type === 'start') {
+                            setStreamGenre(event.genre || null);
+                            setStreamProgress({ current: 0, total: event.total });
+                        } else if (event.type === 'frame') {
+                            setFrames(prev => [...prev, event.frame]);
+                            setStreamProgress(event.progress);
+                        } else if (event.type === 'complete') {
+                            setStatus('success');
+                            setStreamProgress(null);
+                            fetchImageStatus();
+                        } else if (event.type === 'error') {
+                            setStatus('error');
+                            setError(event.message || 'Generation error.');
+                        }
+                    } catch {
+                        // malformed event line — skip
+                    }
+                }
+            }
+
+            if (status === 'generating') setStatus('success');
         } catch (e: any) {
-            console.error(e);
             setStatus('error');
             setError(e.message === 'Failed to fetch'
                 ? 'Backend server is unreachable. Please ensure the Storyboard backend is running on port 8000.'
@@ -353,18 +388,44 @@ export const StoryboardGallery: React.FC<StoryboardGalleryProps> = ({ projectId,
             {/* Image Generation Telemetry Bar */}
             {status === 'success' && renderImageTelemetry()}
 
-            {/* Loading State */}
+            {/* Loading State — with live progress */}
             {status === 'generating' && (
                 <div className="py-20 text-center space-y-6">
                     <div className="relative inline-block">
                         <div className="w-24 h-24 rounded-full border-4 border-indigo-500/20 border-t-indigo-500 animate-spin"></div>
                         <Wand2 className="w-8 h-8 text-indigo-500 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
                     </div>
-                    <div className="space-y-2">
-                        <h3 className="text-xl font-bold">Orchestrating AI Discovery</h3>
-                        <p className="text-slate-500 max-w-sm mx-auto">
-                            Performing triple-pass analysis to find intensity peaks and narrative flow...
-                        </p>
+                    <div className="space-y-3">
+                        {streamProgress ? (
+                            <>
+                                <h3 className="text-xl font-bold">
+                                    Analyzing Scene {streamProgress.current} of {streamProgress.total}
+                                </h3>
+                                {/* Progress bar */}
+                                <div className="max-w-xs mx-auto bg-slate-800 rounded-full h-2 overflow-hidden">
+                                    <div
+                                        className="bg-indigo-500 h-2 rounded-full transition-all duration-500"
+                                        style={{ width: `${(streamProgress.current / streamProgress.total) * 100}%` }}
+                                    />
+                                </div>
+                                <p className="text-slate-500 text-xs font-mono">
+                                    {Math.round((streamProgress.current / streamProgress.total) * 100)}%
+                                    {streamGenre && ` · ${streamGenre.toUpperCase()}`}
+                                </p>
+                                {frames.length > 0 && (
+                                    <p className="text-indigo-400 text-xs font-bold">
+                                        {frames.length} frame{frames.length !== 1 ? 's' : ''} ready ↓
+                                    </p>
+                                )}
+                            </>
+                        ) : (
+                            <>
+                                <h3 className="text-xl font-bold">Orchestrating AI Discovery</h3>
+                                <p className="text-slate-500 max-w-sm mx-auto">
+                                    Detecting genre, loading cinematic knowledge base...
+                                </p>
+                            </>
+                        )}
                     </div>
                 </div>
             )}
