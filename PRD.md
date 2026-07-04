@@ -1,5 +1,8 @@
 # Product Requirements Document (PRD): Storyboard AI
 
+> *"Every element is used because the story demands it — not as a syntax exercise."*
+> — **ACS4.6** &nbsp;·&nbsp; Anthropic Claude Sonnet 4.6
+
 ## 1. Product Overview
 
 Storyboard AI is a professional-grade web application that transforms screenplays into vivid, high-impact storyboard frames. The platform uses advanced Large Language Models (LLMs) to analyze narrative intensity, identify key cinematic moments, and dynamically generate corresponding visuals using various AI Image Generators.

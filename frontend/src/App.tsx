@@ -151,14 +151,28 @@ function App() {
                 )}
             </main>
 
-            <footer className="border-t border-white/5 py-12">
-                <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
-                    <div className="flex items-center gap-2 grayscale opacity-50">
-                        <Clapperboard className="w-5 h-5" />
-                        <span className="font-bold">Storyboard AI</span>
+            <footer className="border-t border-white/5 py-10">
+                <div className="max-w-7xl mx-auto px-4 space-y-6">
+                    {/* Philosophy quote */}
+                    <div className="text-center py-4 border-b border-white/5">
+                        <blockquote className="text-slate-500 text-sm italic leading-relaxed">
+                            &ldquo;Every element is used because the story demands it &mdash; not as a syntax exercise.&rdquo;
+                        </blockquote>
+                        <cite className="text-[10px] font-bold uppercase tracking-widest text-indigo-500/60 mt-2 block not-italic">
+                            — ACS4.6 &nbsp;&middot;&nbsp; Anthropic Claude Sonnet 4.6
+                        </cite>
                     </div>
-                    <div className="text-slate-500 text-sm">
-                        Professional Grade Storyboarding System &copy; 2025
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                        <div className="flex items-center gap-2 grayscale opacity-50">
+                            <Clapperboard className="w-5 h-5" />
+                            <span className="font-bold">Storyboard AI</span>
+                        </div>
+                        <div className="text-slate-600 text-xs">
+                            Professional Grade Storyboarding &nbsp;&middot;&nbsp; Governed by Kirk LaSalle&rsquo;s 10 Laws
+                        </div>
+                        <div className="text-slate-700 text-xs">
+                            &copy; {new Date().getFullYear()} Storyboard AI
+                        </div>
                     </div>
                 </div>
             </footer>
