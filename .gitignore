@@ -1,0 +1,54 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.venv/
+venv/
+ENV/
+env/
+*.env
+
+# Database (never commit — may contain API keys)
+*.db
+*.db-shm
+*.db-wal
+
+# Vector store
+backend/vector_store/
+
+# Frontend dependencies and build
+frontend/node_modules/
+frontend/dist/
+frontend/.next/
+frontend/build/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# Test artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Temporary files
+*.tmp
+*.temp

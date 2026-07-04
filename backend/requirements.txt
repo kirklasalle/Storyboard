@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+pydantic
+sqlalchemy
+chromadb
+openai
+anthropic
+python-multipart
+python-dotenv
+requests
+pillow
+reportlab
+google-generativeai
+groq
+starlette
