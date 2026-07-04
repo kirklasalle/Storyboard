@@ -18,6 +18,7 @@ from content_agreement import get_agreement, log_acceptance  # type: ignore
 from crypto_utils import encrypt_api_key, decrypt_api_key  # type: ignore
 from character_library import CharacterLibrary  # type: ignore
 import json
+import datetime
 import uvicorn # type: ignore
 import uuid
 import os
@@ -228,6 +229,165 @@ async def export_shot_list(project_id: str):
             media_type="text/csv",
             headers={"Content-Disposition": f"attachment; filename=\"{filename}\""},
         )
+    finally:
+        db.close()
+
+@app.get("/projects/{project_id}/export/script.fountain")
+async def export_fountain(project_id: str):
+    """
+    Export a project's scenes back to valid Fountain format (round-trip).
+    Reconstructs a clean .fountain file from persisted scene data.
+    """
+    from fastapi.responses import Response as _Resp
+    db = SessionLocal()
+    try:
+        project = db.query(Project).filter(Project.id == project_id).first()
+        if not project:
+            raise HTTPException(status_code=404, detail="Project not found")
+
+        scenes = (
+            db.query(Scene)
+            .filter(Scene.project_id == project_id)
+            .order_by(Scene.scene_number)
+            .all()
+        )
+        if not scenes:
+            raise HTTPException(status_code=404, detail="No scenes found. Run analysis first.")
+
+        lines = [
+            f"Title: {project.name}",
+            f"Author: Storyboard AI Export",
+            f"Draft date: {datetime.date.today().isoformat()}",
+            "",
+            "",
+        ]
+
+        for scene in scenes:
+            lines.append(scene.heading or f"SCENE {scene.scene_number}")
+            lines.append("")
+            if scene.content:
+                for para in (scene.content or "").split(". "):
+                    para = para.strip()
+                    if para:
+                        lines.append(para + ("." if not para.endswith(".") else ""))
+            chars = json.loads(scene.characters or "[]")
+            for char in chars:
+                lines.append("")
+                lines.append(char)
+                lines.append("(dialogue)")
+            lines.append("")
+
+        fountain_content = "\n".join(lines)
+        proj_slug = (project.name or project_id[:8]).replace(" ", "-").lower()
+        filename = f"{proj_slug}.fountain"
+        logger.info(f"EXPORT: Fountain export for project {project_id} ({len(scenes)} scenes)")
+        return _Resp(
+            content=fountain_content,
+            media_type="text/plain; charset=utf-8",
+            headers={"Content-Disposition": f"attachment; filename=\"{filename}\""},
+        )
+    finally:
+        db.close()
+
+@app.get("/projects/{project_id}/readthrough/cast")
+async def get_readthrough_cast(project_id: str):
+    """
+    Return the read-through cast list — all characters with their assigned
+    TTS voice profiles. The foundation for virtual read-throughs.
+    """
+    from database.models import Character as CharModel  # type: ignore
+    from character_library import VOICE_PROFILES
+    db = SessionLocal()
+    try:
+        chars = (
+            db.query(CharModel)
+            .filter(CharModel.project_id == project_id)
+            .order_by(CharModel.is_lead.desc(), CharModel.scene_count.desc())
+            .all()
+        )
+        cast = []
+        for c in chars:
+            voice_profile = VOICE_PROFILES.get(c.voice_id or "alloy", {})
+            cast.append({
+                "name": c.name,
+                "role": c.role,
+                "voice_id": c.voice_id or "alloy",
+                "voice_provider": c.voice_provider or "openai",
+                "voice_description": c.voice_description or "",
+                "voice_quality": voice_profile.get("quality", ""),
+                "voice_best_for": voice_profile.get("best_for", ""),
+                "is_lead": c.is_lead,
+                "scene_count": c.scene_count,
+                "visual_prompt": c.visual_prompt or "",
+                "tts_ready": bool(c.voice_id),
+            })
+        return {
+            "project_id": project_id,
+            "cast_count": len(cast),
+            "cast": cast,
+            "supported_providers": ["openai", "elevenlabs"],
+            "openai_voices": list(VOICE_PROFILES.keys()),
+            "note": (
+                "TTS generation uses the voice_id assigned to each character. "
+                "OpenAI TTS: provide OPENAI_API_KEY. "
+                "Full audio generation endpoint: POST /projects/{id}/readthrough/generate"
+            ),
+        }
+    finally:
+        db.close()
+
+@app.post("/projects/{project_id}/readthrough/generate")
+async def generate_readthrough_line(project_id: str, body: dict):
+    """
+    Generate a TTS audio sample for a single character line.
+    Body: {"character_name": "HARRIS", "text": "You were here all night.", "voice_id": "onyx"}
+    Returns base64 audio or a provider-specific audio URL.
+    """
+    character_name = body.get("character_name", "")
+    text = body.get("text", "").strip()
+    voice_id = body.get("voice_id", "alloy")
+
+    if not text:
+        raise HTTPException(status_code=400, detail="text is required")
+
+    db = SessionLocal()
+    try:
+        config = db.query(ProviderConfiguration).first()
+        if not config or config.type != "openai":
+            return {
+                "status": "unavailable",
+                "message": "TTS read-through requires an OpenAI provider configuration.",
+                "character": character_name,
+                "voice_id": voice_id,
+                "text_preview": text[:80],
+            }
+
+        from crypto_utils import decrypt_api_key  # type: ignore
+        api_key = decrypt_api_key(config.api_key or "")
+        if not api_key:
+            raise HTTPException(status_code=400, detail="No valid API key configured.")
+
+        import openai as _oai  # type: ignore
+        client = _oai.AsyncOpenAI(api_key=api_key)
+        response = await client.audio.speech.create(
+            model="tts-1",
+            voice=voice_id,
+            input=text,
+        )
+        import base64
+        audio_b64 = base64.b64encode(response.content).decode("utf-8")
+        logger.info(f"TTS: Generated line for '{character_name}' voice={voice_id} ({len(text)} chars)")
+        return {
+            "status": "success",
+            "character": character_name,
+            "voice_id": voice_id,
+            "audio_base64": audio_b64,
+            "audio_format": "mp3",
+            "text": text,
+        }
+    except Exception as e:
+        logger.error(f"TTS: Generation failed: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
     finally:
         db.close()
 

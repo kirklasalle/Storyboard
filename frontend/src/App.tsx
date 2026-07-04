@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
-import { Layout, Clapperboard, Settings, Database, Wand2, Plus, Bug, Copy, X } from 'lucide-react'
+import { Layout, Clapperboard, Settings, Database, Wand2, Plus, Bug, Copy, Users } from 'lucide-react'
 import { ScriptUploader } from './components/ScriptUploader'
 import { Configuration } from './components/Configuration'
 import { StoryboardGallery } from './components/StoryboardGallery'
+import { CharacterLibraryView } from './components/CharacterLibraryView'
 import { API_BASE } from './utils/api'
 
 function App() {
-    const [view, setView] = useState<'home' | 'config' | 'upload' | 'gallery'>('home');
+    const [view, setView] = useState<'home' | 'config' | 'upload' | 'gallery' | 'characters'>('home');
     const [projectId, setProjectId] = useState<string | null>(null);
     const [frames, setFrames] = useState<any[]>([]);
     const [config, setConfig] = useState<any>(null);
@@ -107,6 +108,16 @@ function App() {
                                 Configuration
                             </button>
                         </div>
+                        <div className="has-tooltip">
+                            <span className="tooltip">Character profiles, voice casting, and library</span>
+                            <button
+                                onClick={() => setView('characters')}
+                                className={`text-sm font-medium transition-colors flex items-center gap-1.5 ${view === 'characters' ? 'text-white' : 'text-slate-500 hover:text-white'}`}
+                            >
+                                <Users className="w-3.5 h-3.5" />
+                                Characters
+                            </button>
+                        </div>
                     </nav>
                 </div>
             </header>
@@ -148,6 +159,10 @@ function App() {
 
                 {view === 'gallery' && projectId && (
                     <StoryboardGallery projectId={projectId} config={config} />
+                )}
+
+                {view === 'characters' && (
+                    <CharacterLibraryView projectId={projectId} />
                 )}
             </main>
 

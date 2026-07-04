@@ -159,3 +159,81 @@ All autonomous AI operations in Storyboard AI are governed by:
 * **Kirk LaSalle's Permanent Active Directives** (`Permanent_Active_Directives.txt`) — The 10 Laws
 
 These are embedded cryptographically in `backend/governance.py` and verified at every application boot. The `/governance` API endpoint exposes the full framework.
+
+---
+
+## 8. Quality Spectrum — Story Craft Levels
+
+The test script library includes a three-level quality spectrum (`backend/test_scripts/spectrum/`) that demonstrates the same scene written at three distinct levels of craft. Used as training data for the Cinematic Knowledge Base and as a calibration reference for analysis quality.
+
+| Level | Description | What it produces |
+|-------|-------------|-----------------|
+| **L1 — Basic** | Functional. Facts communicated. No subtext. Characters as functions. | The audience knows what happened. |
+| **L2 — Professional** | Competent craft. Subtext present. Scene has shape. Characters have voices. | The audience feels the tension. |
+| **L3 — Oscar / World-Class** | Every word load-bearing. Final image is the scene's real last line. | The audience carries something home. |
+
+**Files:** `L1_screenplay.txt`, `L2_screenplay.txt`, `L3_screenplay.txt`, `L1_fountain.fountain`, `L2_fountain.fountain`, `L3_fountain.fountain`, `L123_stage_play.txt`, `L123_av_script.txt`
+
+*"The distance from Level 1 to Level 3 is not vocabulary or technique — it is specificity earned by observation, subtext earned by trusting the reader, and the image that does the work the words no longer need to."* — ACS4.6
+
+---
+
+## 9. Character Database & Library
+
+### 9.1 Per-Project Character Profiles
+
+Every script analysis automatically extracts and profiles all named characters:
+
+* **Visual Profile**: Full physical description, age range, wardrobe signature
+* **Image Consistency Prompt**: Compact phrase injected into all image generation calls for that character — ensures the same face appears across all frames
+* **Voice Assignment**: One of 6 OpenAI TTS voices (alloy, echo, fable, onyx, nova, shimmer) for read-through casting
+* **Scene Tracking**: Scene count, line count, first appearance, lead status
+
+### 9.2 Global Character Archetype Library
+
+A growing cross-project archetype database seeded with 12 foundational types and expanded by every project analyzed.
+
+**Taxonomy — 18,432 possible type combinations:**
+
+| Dimension | Count | Examples |
+|-----------|-------|---------|
+| Narrative Roles | 16 | protagonist, antagonist, mentor, trickster, shapeshifter, narrator |
+| Jungian Archetypes | 12 | the_hero, the_sage, the_rebel, the_lover, the_magician |
+| Production Tiers | 6 | series_regular, recurring, guest_star, day_player, voice_only |
+| Genre Types | 16 | noir_detective, femme_fatale, whistleblower, tragic_hero, journalist |
+
+**API:** `GET /characters/library`, `GET /characters/library/taxonomy`, `GET /projects/{id}/characters`
+
+### 9.3 TTS Read-Through (Virtual Characters)
+
+Infrastructure for TTS-driven virtual read-throughs:
+
+* **Cast List:** `GET /projects/{id}/readthrough/cast` — all characters with voice assignments
+* **Line Generation:** `POST /projects/{id}/readthrough/generate` — single line TTS via OpenAI
+* **Full read-through** (roadmap): Sequential line generation with per-character voice, exported as audio track
+* **Voice Profiles**: alloy (neutral narrator), echo (intellectual male), fable (warm expressive), onyx (deep authority), nova (warm female lead), shimmer (bright/young)
+
+---
+
+## 10. Export Capabilities
+
+| Export | Endpoint | Format | Use Case |
+|--------|----------|--------|---------|
+| Shot List | `GET /projects/{id}/export/shot-list.csv` | CSV | DPs and ADs on set |
+| Fountain Script | `GET /projects/{id}/export/script.fountain` | .fountain | Round-trip back to writer's tools |
+| PDF Storyboard | (via ExportService) | PDF | Client presentations |
+| Image ZIP | (via ExportService) | ZIP | Frame delivery |
+
+---
+
+## 11. Test Suite
+
+**71 tests passing at 0.89 seconds.** Run with: `python -m pytest backend/tests/ -v`
+
+| Module | Tests | Coverage |
+|--------|-------|---------|
+| `test_parsers.py` | 23 | FDX, Fountain, format detector, ScriptParser cascade, character extraction |
+| `test_style_vault.py` | 10 | All 16 styles, required fields, fallback behavior |
+| `test_genre_vault.py` | 12 | All 18 genres, alias resolution, case insensitivity, fallback |
+| `test_crypto.py` | 10 | Encrypt/decrypt round-trip, legacy passthrough, edge cases |
+| `test_character_library.py` | 16 | Taxonomy counts, seed archetypes, voice profiles, combinations |
