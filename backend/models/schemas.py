@@ -4,10 +4,11 @@ from typing import List, Optional, Dict
 class ProviderConfig(BaseModel):
     id: Optional[str] = None
     name: Optional[str] = None
-    type: str # 'openai', 'local', etc.
+    type: str  # 'openai', 'local', etc.
     base_url: Optional[str] = None
     api_key: Optional[str] = None
     model_name: Optional[str] = None
+    storyboard_style: Optional[str] = "oscar_prestige"
 
 class ProjectCreate(BaseModel):
     name: str

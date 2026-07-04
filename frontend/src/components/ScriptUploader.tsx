@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Upload, FileText, CheckCircle, AlertCircle } from 'lucide-react';
+import { API_BASE } from '../utils/api';
 
 interface ScriptUploaderProps {
     onUploadSuccess: (id: string) => void;
@@ -24,7 +25,7 @@ export const ScriptUploader: React.FC<ScriptUploaderProps> = ({ onUploadSuccess,
         formData.append('file', file);
 
         try {
-            const response = await fetch(`http://127.0.0.1:8000/projects/${projectId}/scripts`, {
+            const response = await fetch(`${API_BASE}/projects/${projectId}/scripts`, {
                 method: 'POST',
                 body: formData,
             });
@@ -50,7 +51,7 @@ export const ScriptUploader: React.FC<ScriptUploaderProps> = ({ onUploadSuccess,
                 </div>
                 <div>
                     <h3 className="text-xl font-bold">Upload Your Script</h3>
-                    <p className="text-slate-400">PDF or Text files are supported</p>
+                    <p className="text-slate-400">PDF, Final Draft (.fdx), Fountain, Word (.docx), or plain text</p>
                 </div>
 
                 <label className="w-full h-32 border-2 border-dashed border-slate-700 rounded-xl flex items-center justify-center cursor-pointer hover:border-indigo-500/50 transition-colors group">

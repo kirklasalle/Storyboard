@@ -1,35 +1,76 @@
 import re
 from typing import List, Dict, Any, Optional, Set
+from parsers.fountain_parser import parse_fountain  # type: ignore
+from parsers.fdx_parser import parse_fdx  # type: ignore
+
 
 class ScriptParser:
     @staticmethod
-    def parse(content: str) -> List[Dict[str, Any]]:
-        """Parses any document into scene/section blocks.
-        
-        Supports:
-        - Screenplays (INT./EXT. headings)
-        - Stage plays (ACT/SCENE headings)
-        - Chapters (Chapter X, CHAPTER X)
-        - Numbered sections (1., 2., Part I, etc.)
-        - Generic prose (auto-split by paragraphs into logical chunks)
+    def parse(content: str, format_hint: str = "auto") -> List[Dict[str, Any]]:
+        """Parse any text-based script content into scene/section blocks.
+
+        Format cascade (auto mode):
+          1. FDX (Final Draft XML)
+          2. Fountain
+          3. Screenplay INT./EXT. headings
+          4. Structured headings (ACT/SCENE/CHAPTER/etc.)
+          5. Generic prose chunking
         """
         content = content.strip()
         if not content:
             return []
 
-        # Try screenplay format first (INT./EXT.)
+        # Explicit format hint
+        if format_hint == "fdx":
+            return parse_fdx(content)
+        if format_hint == "fountain":
+            return parse_fountain(content)
+
+        # Auto-detect: FDX (XML with <FinalDraft)
+        if "<FinalDraft" in content[:512] or "FinalDraft" in content[:512]:
+            try:
+                scenes = parse_fdx(content)
+                if scenes:
+                    return scenes
+            except Exception:
+                pass
+
+        # Auto-detect: Fountain signature
+        if ScriptParser._looks_like_fountain(content):
+            scenes = parse_fountain(content)
+            if scenes:
+                return scenes
+
+        # Standard screenplay INT./EXT.
         scenes = ScriptParser._parse_screenplay(content)
         if scenes:
             return scenes
 
-        # Try chapter/act/scene headings
+        # Structured headings (ACT/SCENE/CHAPTER/etc.)
         scenes = ScriptParser._parse_structured(content)
         if scenes:
             return scenes
 
-        # Fallback: split into logical chunks by paragraph groups
-        scenes = ScriptParser._parse_prose(content)
-        return scenes
+        # Fallback: prose chunking
+        return ScriptParser._parse_prose(content)
+
+    @staticmethod
+    def _looks_like_fountain(content: str) -> bool:
+        """Quick heuristic to detect Fountain-formatted text."""
+        sample = content[:2048]
+        lines = sample.split('\n')[:40]
+        score = 0
+        for line in lines:
+            s = line.strip()
+            if re.match(r'^\.\s+[A-Z]', s):           # forced heading
+                score += 3
+            if re.match(r'^(Title|Author|Draft date|Credit|Source):', s):  # title page
+                score += 3
+            if s.startswith('>') and s.endswith('<'):   # centered action
+                score += 2
+            if re.match(r'^={3,}$', s):                 # synopsis
+                score += 1
+        return score >= 3
 
     @staticmethod
     def _parse_screenplay(content: str) -> List[Dict[str, Any]]:

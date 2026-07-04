@@ -1,132 +1,155 @@
 from typing import List, Dict, Any, Optional
 from providers.base_provider import BaseProvider  # type: ignore
 from genre_vault import get_style_guidance  # type: ignore
+from style_vault import get_style  # type: ignore
 import json
+import re
 import logging
 
 class StoryboardEngine:
     def __init__(self, provider: BaseProvider):
         self.provider = provider
-        self.safety_replacements = {
-            "blood": "intense red fluid",
-            "kill": "neutralize",
-            "murder": "dramatic confrontation",
-            "gun": "metallic silhouette",
-            "weapon": "sharp tool",
-            "suicide": "self-reflection moment",
-            "naked": "bare skin silhouette",
-            "nude": "cinematic form",
-            "drugs": "unknown substances",
-            "terrorist": "antagonist",
-            "bomb": "explosive device",
-            "sex": "intimacy",
-            "dead body": "still form",
-            "corpse": "fallen figure"
-        }
 
-    async def analyze_script(self, scenes: List[Dict[str, Any]], user_genre: Optional[str] = None) -> List[Dict[str, Any]]:
-        """Orchestrates the triple-pass analysis for storyboard generation."""
-        
-        # 1. Genre Pass (If not provided)
+    def _extract_json(self, text: str) -> str:
+        """Robustly extract a JSON object from LLM output regardless of wrapper format."""
+        # Fenced code block: ```json ... ``` or ``` ... ```
+        m = re.search(r'```(?:json)?\s*([\s\S]*?)\s*```', text, re.IGNORECASE)
+        if m:
+            return m.group(1).strip()
+        # XML-style tags
+        m = re.search(r'<json>([\s\S]*?)</json>', text, re.IGNORECASE)
+        if m:
+            return m.group(1).strip()
+        # Raw outermost JSON object
+        m = re.search(r'\{[\s\S]*\}', text)
+        if m:
+            return m.group(0).strip()
+        return text.strip()
+
+    async def analyze_script(
+        self,
+        scenes: List[Dict[str, Any]],
+        user_genre: Optional[str] = None,
+        storyboard_style: str = "oscar_prestige"
+    ) -> List[Dict[str, Any]]:
+        """Orchestrates the cinematography-aware analysis for storyboard generation."""
+
+        # 1. Genre Detection Pass
         genre = user_genre
         if not genre:
-            script_sample = "\n".join([s.get("heading", "") for s in scenes[:5]])  # type: ignore
-            genre_prompt = f"Analyze the following scene headings and determine the primary film genre (Action, Drama, Horror, Comedy, etc.):\n\n{script_sample}"
-            genre = await self.provider.generate_text(genre_prompt)
-            genre = genre.strip().split()[0].replace(",", "").replace(".", "").lower()
+            script_sample = "\n".join([s.get("heading", "") for s in scenes[:5]])
+            genre_prompt = (
+                "Analyze the following scene headings and identify the primary film genre "
+                "in a single word (Action, Drama, Horror, Comedy, Thriller, SciFi, Western, "
+                "Noir, Fantasy, Romance, War, Heist, Period, Psychological, Superhero, etc.):\n\n"
+                f"{script_sample}"
+            )
+            raw_genre = await self.provider.generate_text(genre_prompt)
+            genre = re.sub(r'[^a-zA-Z\-]', '', raw_genre.strip().split()[0]).lower()
 
         style_guidance = get_style_guidance(genre)
-        logging.info(f"ENGINE: Beginning analysis for {len(scenes)} scenes in genre '{genre}'")
-        
+        visual_style = get_style(storyboard_style)
+        logging.info(
+            f"ENGINE: Analyzing {len(scenes)} scenes | genre='{genre}' | style='{storyboard_style}'"
+        )
+
         processed_frames = []
-        
-        # 2. Narrative & Intensity Pass
+
+        # 2. Narrative & Cinematography Pass — one LLM call per scene
         for i, scene in enumerate(scenes):
-            logging.info(f"ENGINE: Analyzing scene {i+1}/{len(scenes)}: {scene.get('heading')}")
+            logging.info(f"ENGINE: Scene {i+1}/{len(scenes)}: {scene.get('heading')}")
             scene_text = scene.get("text", "")
-            prompt = f"""
-            Analyze the following screenplay scene for a {genre} film.
-            
-            Visual Style Guidance: {style_guidance['visual_style']}
-            Intensity Focus: {style_guidance['intensity_focus']}
-            
-            Task:
-            1. Identify the single most 'storyboard-worthy' moment in this scene based on the intensity focus.
-            2. Describe this moment as a visual prompt for an AI image generator.
-            3. Rate the intensity of this moment from 1-10.
-            4. Categorize it as 'Action Peak', 'Emotional Peak', or 'Lull'.
-            
-            Scene:
-            {scene.get('heading')}
-            {scene_text}
-            
-            Return the result in JSON format:
-            {{
-                "description": "Visual description for the image generator",
-                "intensity_score": 8.5,
-                "intensity_type": "Action Peak",
-                "moment_summary": "Short summary of why this moment was chosen"
-            }}
-            """
-            
+
+            prompt = f"""You are a world-class cinematographer and storyboard artist analyzing a {genre} screenplay.
+
+Visual Style Guidance: {style_guidance['visual_style']}
+Intensity Focus: {style_guidance['intensity_focus']}
+Art Direction: {visual_style['name']} — {visual_style['description']}
+
+TASK: Identify the single most cinematically powerful, storyboard-worthy moment in this scene.
+
+Scene:
+{scene.get('heading', '')}
+{scene_text}
+
+Return ONLY a valid JSON object with these exact fields — no other text:
+{{
+    "description": "Rich visual description for the storyboard artist: what fills the frame, action, emotion, atmosphere",
+    "intensity_score": 8.5,
+    "intensity_type": "Action Peak",
+    "moment_summary": "One sentence explaining why this is the most powerful moment",
+    "shot_type": "Low Angle Wide Shot",
+    "camera_movement": "Slow dolly push-in",
+    "lens": "24mm anamorphic",
+    "lighting": "Hard side key light, deep shadow fill"
+}}
+
+Rules:
+- intensity_score is a float from 1.0 to 10.0
+- intensity_type must be exactly one of: "Action Peak", "Emotional Peak", "Lull"
+- shot_type examples: ECU, CU, MCU, MS, WS, EWS, OTS, POV, Dutch Angle, Overhead
+- camera_movement examples: Static, Handheld, Dolly In, Dolly Out, Pan, Tilt, Crane, Drone, Tracking
+"""
+
             try:
                 result_text = await self.provider.generate_text(prompt)
-                # Extract JSON if there's markdown wrapping
-                if "```json" in result_text:
-                    result_text = result_text.split("```json")[1].split("```")[0].strip()
-                elif "```" in result_text:
-                    result_text = result_text.split("```")[1].split("```")[0].strip()
-                
-                analysis = json.loads(result_text)
+                json_text = self._extract_json(result_text)
+                analysis = json.loads(json_text)
                 processed_frames.append({
                     "scene_number": i + 1,
-                    "heading": scene.get("heading"),
-                    **analysis
+                    "heading": scene.get("heading", f"Scene {i + 1}"),
+                    "description": analysis.get("description", ""),
+                    "intensity_score": float(analysis.get("intensity_score", 5.0)),
+                    "intensity_type": analysis.get("intensity_type", "Lull"),
+                    "moment_summary": analysis.get("moment_summary", ""),
+                    "shot_type": analysis.get("shot_type", "Medium Shot"),
+                    "camera_movement": analysis.get("camera_movement", "Static"),
+                    "lens": analysis.get("lens", "50mm"),
+                    "lighting": analysis.get("lighting", "Natural"),
                 })
             except Exception as e:
                 logging.error(f"ENGINE: Failed scene {i+1}: {e}")
                 processed_frames.append({
                     "scene_number": i + 1,
-                    "heading": scene.get("heading"),
-                    "description": "Analysis failed",
-                    "intensity_score": 0,
-                    "intensity_type": "neutral",
-                    "moment_summary": str(e)
+                    "heading": scene.get("heading", f"Scene {i + 1}"),
+                    "description": scene_text[:300] if scene_text else "Scene content unavailable",
+                    "intensity_score": 5.0,
+                    "intensity_type": "Lull",
+                    "moment_summary": "Analysis unavailable — using raw scene text",
+                    "shot_type": "Medium Shot",
+                    "camera_movement": "Static",
+                    "lens": "50mm",
+                    "lighting": "Natural",
                 })
-        
-        logging.info(f"ENGINE: Analysis complete. Total frames identified: {len(processed_frames)}")
+
+        logging.info(f"ENGINE: Analysis complete. {len(processed_frames)} frames identified.")
         return processed_frames
 
-    def _soften_prompt(self, prompt: str) -> str:
-        """Lightly modifies prompt to avoid common safety triggers while preserving intent."""
-        softened = prompt.lower()
-        for word, replacement in self.safety_replacements.items():
-            softened = softened.replace(word.lower(), replacement)
-        
-        # Add artistic framing to further distance from graphic reality
-        softened = f"An artistic, cinematic representation of: {softened}. Style: Impressionistic film capture, moody lighting, metaphorical imagery."
-        return softened
-
-    async def generate_visual(self, frame_description: str, genre: str = "drama") -> dict:
+    async def generate_visual(
+        self,
+        frame_description: str,
+        genre: str = "drama",
+        storyboard_style: str = "oscar_prestige"
+    ) -> dict:
         """Generates an image for a single frame description. Returns structured result."""
+        style = get_style(storyboard_style)
         style_guidance = get_style_guidance(genre.lower())
-        
-        safe_description = self._soften_prompt(frame_description)
-        
-        enhanced_prompt = f"""
-        Cinematic Storyboard Frame: {safe_description}
-        
-        Visual Style: {style_guidance['visual_style']}
-        Format: Professional film storyboard, cinematic lighting, ultra-detailed.
-        """
-        
-        # Try provider's image generation first
+
+        enhanced_prompt = (
+            f"{style['prompt_prefix']}. "
+            f"Scene: {frame_description}. "
+            f"Cinematography: {style_guidance['visual_style']} "
+            f"Color palette: {style['color_palette']}. "
+            f"Lighting: {style['lighting']}. "
+            f"{style['prompt_suffix']}. "
+            f"16:9 cinematic aspect ratio, professional storyboard frame quality."
+        )
+
+        # Try provider's native image generation first
         try:
             result = await self.provider.generate_image(enhanced_prompt)
-            # If provider returns a dict (structured), use it directly
             if isinstance(result, dict):
                 return result
-            # If it returns a plain URL string (other providers), wrap it
             return {
                 "image_url": result,
                 "model_used": "provider-default",
@@ -135,15 +158,12 @@ class StoryboardEngine:
             }
         except Exception as e:
             logging.warning(f"ENGINE: Provider image generation failed ({e}), falling back to Pollinations.ai")
-            
-            # Collect attempts from the exception if available
             attempts = getattr(e, 'attempts', [])
             attempts.append({
                 "model": "Pollinations.ai (Free)",
                 "status": "success",
                 "note": "Free community image generation — no API key required"
             })
-            
             pollinations_url = self._get_pollinations_url(enhanced_prompt)
             return {
                 "image_url": pollinations_url,
@@ -151,10 +171,11 @@ class StoryboardEngine:
                 "provider": "Pollinations.ai (Free Fallback)",
                 "attempts": attempts
             }
-    
+
     def _get_pollinations_url(self, prompt: str) -> str:
-        """Generates a free image URL via Pollinations.ai (no API key required)."""
+        """Generate a free image URL via Pollinations.ai (no API key required)."""
         import urllib.parse
         clean_prompt = prompt.strip().replace('\n', ' ').replace('  ', ' ')
-        encoded = urllib.parse.quote(clean_prompt[:500])  # type: ignore
+        encoded = urllib.parse.quote(clean_prompt[:500])
         return f"https://image.pollinations.ai/prompt/{encoded}?width=1024&height=576&nologo=true"
+

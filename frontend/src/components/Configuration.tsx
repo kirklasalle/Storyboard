@@ -2,8 +2,28 @@ import React, { useState, useEffect } from 'react';
 import {
     Settings, Key, Globe, Database, Activity, CheckCircle2, AlertCircle, Loader2,
     Bug, Terminal, Copy, Download, RefreshCw, ChevronDown, ChevronRight, Save,
-    Cpu, Layers, ChevronUp, ExternalLink, Coins
+    Cpu, Layers, ChevronUp, ExternalLink, Coins, Palette
 } from 'lucide-react';
+import { API_BASE } from '../utils/api';
+
+const STORYBOARD_STYLES = [
+    { id: 'oscar_prestige', name: 'Oscar-Level Prestige', category: 'Prestige Cinema', desc: 'Lubezki natural light. Deakins master control.' },
+    { id: 'classic_pencil', name: 'Classic Pencil & Charcoal', category: 'Traditional', desc: 'Loose gestural pencil work, cross-hatching.' },
+    { id: 'film_noir', name: 'Film Noir Expressionist', category: 'Classic Cinema', desc: 'High contrast B&W. Venetian blind shadows.' },
+    { id: 'comic_book', name: 'Comic Book Ink', category: 'Graphic Novel', desc: 'Bold ink lines, Ben-Day dots, Marvel energy.' },
+    { id: 'anime_cinematic', name: 'Anime Cinematic', category: 'Animation', desc: 'Miyazaki warmth meets Kon psychological depth.' },
+    { id: 'european_graphic_novel', name: 'European Graphic Novel', category: 'Graphic Novel', desc: 'Moebius ligne claire. Metal Hurlant aesthetic.' },
+    { id: 'pixar_previs', name: 'Pixar / DreamWorks Pre-vis', category: 'Animation', desc: 'Warm CG lighting, appeal-driven staging.' },
+    { id: 'concept_art_digital', name: 'Concept Art / Syd Mead', category: 'Concept Art', desc: 'Industrial realism. Atmospheric perspective.' },
+    { id: 'painted_realism', name: 'Golden Age Painted Realism', category: 'Classic Art', desc: 'Norman Rockwell. N.C. Wyeth. Oil painting.' },
+    { id: 'neo_noir_neon', name: 'Neo-Noir / Cyberpunk Neon', category: 'Modern Cinema', desc: 'Blade Runner wet streets. Villeneuve darkness.' },
+    { id: 'wes_anderson', name: 'Wes Anderson Symmetry', category: 'Modern Cinema', desc: 'Perfect symmetry. Pastel palette. Deadpan.' },
+    { id: 'dogme_naturalist', name: 'Dogme / Naturalist', category: 'Independent Film', desc: 'Handheld urgency. Available light only.' },
+    { id: 'expressionist_horror', name: 'Expressionist Horror', category: 'Classic Cinema', desc: 'Nosferatu angles. Shadow as monster.' },
+    { id: 'golden_age_hollywood', name: 'Golden Age Hollywood', category: 'Classic Cinema', desc: '1940s studio glamour. Technicolor dreams.' },
+    { id: 'manga_kinetic', name: 'Manga / Kinetic Ink', category: 'Animation', desc: 'Speed lines. Impact frames. Otomo precision.' },
+    { id: 'wong_kar_wai', name: 'Wong Kar-wai Impressionist', category: 'Independent Film', desc: 'Motion blur poetry. Christopher Doyle lens.' },
+];
 
 interface ConfigurationProps {
     onSave: (config: any) => void;
@@ -17,6 +37,7 @@ export const Configuration: React.FC<ConfigurationProps> = ({ onSave }) => {
     const [provider, setProvider] = useState<'openai' | 'local' | 'anthropic' | 'google' | 'openrouter' | 'groq'>('openai');
     const [models, setModels] = useState<any[]>([]);
     const [selectedModel, setSelectedModel] = useState('');
+    const [storyboardStyle, setStoryboardStyle] = useState('oscar_prestige');
     const [testStatus, setTestStatus] = useState<'idle' | 'testing' | 'success' | 'error'>('idle');
     const [testMessage, setTestMessage] = useState('');
     const [lastDuration, setLastDuration] = useState('');
@@ -71,7 +92,7 @@ export const Configuration: React.FC<ConfigurationProps> = ({ onSave }) => {
             };
 
             const startTime = Date.now();
-            const resp = await fetch(`http://127.0.0.1:8000/providers/models`, {
+            const resp = await fetch(`${API_BASE}/providers/models`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(config)
@@ -103,13 +124,14 @@ export const Configuration: React.FC<ConfigurationProps> = ({ onSave }) => {
     const fetchConfig = async () => {
         try {
             addLog(`Loading persistent configuration...`);
-            const resp = await fetch('http://127.0.0.1:8000/providers/config');
+            const resp = await fetch(`${API_BASE}/providers/config`);
             if (resp.ok) {
                 const data = await resp.json();
                 if (data) {
                     const type = data.type as any;
                     setProvider(type);
                     setApiKey(data.api_key || '');
+                    setStoryboardStyle(data.storyboard_style || 'oscar_prestige');
 
                     const defaults: Record<string, string> = {
                         openai: 'https://api.openai.com/v1',
@@ -144,11 +166,12 @@ export const Configuration: React.FC<ConfigurationProps> = ({ onSave }) => {
                 type: p,
                 api_key: apiKey,
                 base_url: baseUrl,
-                model_name: selectedModel
+                model_name: selectedModel,
+                storyboard_style: storyboardStyle,
             };
 
             const startTime = Date.now();
-            const resp = await fetch('http://127.0.0.1:8000/providers/test', {
+            const resp = await fetch(`${API_BASE}/providers/test`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(config)
@@ -191,11 +214,12 @@ export const Configuration: React.FC<ConfigurationProps> = ({ onSave }) => {
                 type: p,
                 api_key: apiKey,
                 base_url: baseUrl,
-                model_name: selectedModel
+                model_name: selectedModel,
+                storyboard_style: storyboardStyle,
             };
 
             const startTime = Date.now();
-            const resp = await fetch('http://127.0.0.1:8000/providers/save', {
+            const resp = await fetch(`${API_BASE}/providers/save`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(config)
@@ -224,9 +248,10 @@ export const Configuration: React.FC<ConfigurationProps> = ({ onSave }) => {
                 type: provider,
                 api_key: apiKey,
                 base_url: baseUrl,
-                model_name: selectedModel
+                model_name: selectedModel,
+                storyboard_style: storyboardStyle,
             };
-            const resp = await fetch('http://127.0.0.1:8000/providers/balance', {
+            const resp = await fetch(`${API_BASE}/providers/balance`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(config)
@@ -430,6 +455,37 @@ export const Configuration: React.FC<ConfigurationProps> = ({ onSave }) => {
                                         Tip: Press "Test & Save" to fetch the latest model list from OpenRouter.
                                     </p>
                                 )}
+                            </div>
+                        </div>
+
+                        {/* ─── Storyboard Art Style Picker ─────────────────────────── */}
+                        <div className="space-y-4 border-t border-white/5 pt-6">
+                            <label className="text-sm font-bold text-slate-500 uppercase tracking-widest flex items-center gap-2">
+                                <Palette className="w-4 h-4" />
+                                Storyboard Art Style
+                            </label>
+                            <p className="text-xs text-slate-600">
+                                Defines the visual language for all generated storyboard frames.
+                            </p>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-72 overflow-y-auto pr-1 styled-scrollbar">
+                                {STORYBOARD_STYLES.map((style) => (
+                                    <button
+                                        key={style.id}
+                                        onClick={() => setStoryboardStyle(style.id)}
+                                        className={`text-left p-3 rounded-xl border transition-all space-y-0.5 ${storyboardStyle === style.id
+                                                ? 'bg-indigo-500/10 border-indigo-500/50 ring-1 ring-indigo-500/30'
+                                                : 'bg-slate-900/40 border-white/5 hover:border-white/10'
+                                            }`}
+                                    >
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-xs font-bold text-white leading-tight">{style.name}</span>
+                                            <span className="text-[9px] uppercase tracking-widest text-slate-600 px-1.5 py-0.5 bg-white/5 rounded-md shrink-0 ml-2">
+                                                {style.category}
+                                            </span>
+                                        </div>
+                                        <p className="text-[10px] text-slate-500 leading-snug">{style.desc}</p>
+                                    </button>
+                                ))}
                             </div>
                         </div>
 
@@ -670,7 +726,7 @@ export const Configuration: React.FC<ConfigurationProps> = ({ onSave }) => {
                                     <div className="bg-slate-900/40 rounded-2xl p-4 border border-white/5 space-y-3">
                                         <div className="flex justify-between text-[11px]">
                                             <span className="text-slate-500">Backend Endpoint</span>
-                                            <span className="text-indigo-400 font-mono">http://127.0.0.1:8000</span>
+                                            <span className="text-indigo-400 font-mono">{API_BASE}</span>
                                         </div>
                                         <div className="flex justify-between text-[11px]">
                                             <span className="text-slate-500">Frontend Origin</span>

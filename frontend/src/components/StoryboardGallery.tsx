@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Layout, Image as ImageIcon, Wand2, Download, RefreshCw, Loader2, AlertCircle, Activity, CheckCircle2, XCircle, ArrowRight, Sparkles, Info, Zap, Shield } from 'lucide-react';
+import { API_BASE } from '../utils/api';
 
 interface Attempt {
     model: string;
@@ -67,7 +68,7 @@ export const StoryboardGallery: React.FC<StoryboardGalleryProps> = ({ projectId,
 
     const fetchImageStatus = async () => {
         try {
-            const resp = await fetch('http://127.0.0.1:8000/providers/image-status');
+            const resp = await fetch(`${API_BASE}/providers/image-status`);
             if (resp.ok) {
                 const data = await resp.json();
                 setImageStatus(data);
@@ -88,7 +89,7 @@ export const StoryboardGallery: React.FC<StoryboardGalleryProps> = ({ projectId,
         setStatus('generating');
         setError(null);
         try {
-            const resp = await fetch(`http://127.0.0.1:8000/projects/${projectId}/generate`, {
+            const resp = await fetch(`${API_BASE}/projects/${projectId}/generate`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(config || { type: 'openai', api_key: '' })
@@ -122,7 +123,7 @@ export const StoryboardGallery: React.FC<StoryboardGalleryProps> = ({ projectId,
         setFrames(prev => prev.map(f => f.id === frameId ? { ...f, generating: true, imageError: null } : f));
         setNotification(null);
         try {
-            const resp = await fetch(`http://127.0.0.1:8000/frames/${frameId}/generate-image`, {
+            const resp = await fetch(`${API_BASE}/frames/${frameId}/generate-image`, {
                 method: 'POST'
             });
             const data = await resp.json();
@@ -251,9 +252,8 @@ export const StoryboardGallery: React.FC<StoryboardGalleryProps> = ({ projectId,
                         : 'bg-emerald-950/90 border-emerald-500/30 shadow-emerald-500/10'
                     }
                 `}>
-                    <div className={`px-5 py-3 flex items-center justify-between border-b ${
-                        isFallback ? 'border-amber-500/20' : 'border-emerald-500/20'
-                    }`}>
+                    <div className={`px-5 py-3 flex items-center justify-between border-b ${isFallback ? 'border-amber-500/20' : 'border-emerald-500/20'
+                        }`}>
                         <div className="flex items-center gap-2.5">
                             {isFallback ? (
                                 <div className="w-7 h-7 rounded-full bg-amber-500/20 flex items-center justify-center">
@@ -288,9 +288,8 @@ export const StoryboardGallery: React.FC<StoryboardGalleryProps> = ({ projectId,
                                     <XCircle className="w-4 h-4 text-rose-400 flex-shrink-0" />
                                 )}
                                 <div className="flex-1 min-w-0">
-                                    <span className={`text-sm font-semibold ${
-                                        attempt.status === 'success' ? 'text-white' : 'text-slate-400 line-through'
-                                    }`}>
+                                    <span className={`text-sm font-semibold ${attempt.status === 'success' ? 'text-white' : 'text-slate-400 line-through'
+                                        }`}>
                                         {attempt.model}
                                     </span>
                                     {attempt.reason && (
@@ -307,9 +306,8 @@ export const StoryboardGallery: React.FC<StoryboardGalleryProps> = ({ projectId,
                         ))}
                     </div>
 
-                    <div className={`px-5 py-3 border-t ${
-                        isFallback ? 'border-amber-500/20 bg-amber-950/50' : 'border-emerald-500/20 bg-emerald-950/50'
-                    }`}>
+                    <div className={`px-5 py-3 border-t ${isFallback ? 'border-amber-500/20 bg-amber-950/50' : 'border-emerald-500/20 bg-emerald-950/50'
+                        }`}>
                         <p className="text-[11px] text-slate-400">
                             {isFallback ? (
                                 <>Rendered via <span className="font-bold text-amber-300">Pollinations.ai</span> — free community generation. Enable a paid image model for higher quality.</>

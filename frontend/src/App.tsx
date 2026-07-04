@@ -3,6 +3,7 @@ import { Layout, Clapperboard, Settings, Database, Wand2, Plus, Bug, Copy, X } f
 import { ScriptUploader } from './components/ScriptUploader'
 import { Configuration } from './components/Configuration'
 import { StoryboardGallery } from './components/StoryboardGallery'
+import { API_BASE } from './utils/api'
 
 function App() {
     const [view, setView] = useState<'home' | 'config' | 'upload' | 'gallery'>('home');
@@ -13,7 +14,7 @@ function App() {
     useEffect(() => {
         const loadConfig = async () => {
             try {
-                const resp = await fetch('http://127.0.0.1:8000/providers/config');
+                const resp = await fetch(`${API_BASE}/providers/config`);
                 if (resp.ok) {
                     const data = await resp.json();
                     if (data) setConfig(data);
@@ -27,7 +28,7 @@ function App() {
 
     const handleCreateProject = async () => {
         try {
-            const resp = await fetch('http://127.0.0.1:8000/projects', {
+            const resp = await fetch(`${API_BASE}/projects`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name: 'New Project', description: 'Generated Project' })

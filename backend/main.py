@@ -18,7 +18,12 @@ import httpx # type: ignore
 import logging
 import time
 import io
-from PyPDF2 import PdfReader # type: ignore
+import pdfplumber  # type: ignore
+from parsers.format_detector import detect_format  # type: ignore
+from parsers.docx_parser import extract_docx_text  # type: ignore
+from parsers.fdx_parser import parse_fdx  # type: ignore
+from parsers.fountain_parser import parse_fountain  # type: ignore
+from style_vault import list_styles  # type: ignore
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -45,6 +50,11 @@ async def log_requests(request, call_next):
 
 # Initialize database
 init_db()
+
+@app.get("/styles")
+async def get_styles():
+    """Returns all available storyboard art styles."""
+    return list_styles()
 
 @app.get("/providers/local/models")
 async def get_local_models(base_url: str = "http://127.0.0.1:11434"):
@@ -102,11 +112,10 @@ async def get_image_status():
                 {"name": "dall-e-2", "tier": "paid"},
             ],
             "google": [
-                {"name": "Nano Banana 2 Preview", "tier": "paid"},
-                {"name": "Nano Banana Pro Preview", "tier": "paid"},
-                {"name": "Nano Banana", "tier": "paid"},
-                {"name": "Imagen 3", "tier": "paid"},
-                {"name": "Imagen 3 Fast", "tier": "paid"},
+                {"name": "imagen-4", "tier": "paid"},
+                {"name": "imagen-4-fast", "tier": "paid"},
+                {"name": "imagen-3", "tier": "paid"},
+                {"name": "imagen-3-fast", "tier": "paid"},
             ],
             "openrouter": [
                 {"name": "Provider Image Models", "tier": "paid"},
@@ -199,13 +208,15 @@ async def save_config(config: ProviderConfig):
             existing.api_key = config.api_key
             existing.base_url = config.base_url
             existing.model_name = config.model_name
+            existing.storyboard_style = config.storyboard_style or "oscar_prestige"
         else:
             new_config = ProviderConfiguration(
                 id="default",
                 type=config.type,
                 api_key=config.api_key,
                 base_url=config.base_url,
-                model_name=config.model_name
+                model_name=config.model_name,
+                storyboard_style=config.storyboard_style or "oscar_prestige",
             )
             db.add(new_config)
         db.commit()
@@ -243,26 +254,55 @@ async def create_project(project: ProjectCreate):
 @app.post("/projects/{project_id}/scripts")
 async def upload_script(project_id: str, file: UploadFile = File(...)):
     logger.info(f"API: Received script upload for project {project_id}")
-    file_bytes = await file.read()
-    
+
+    # Security: enforce file size limit (20 MB)
+    MAX_SIZE = 20 * 1024 * 1024
+    file_bytes = await file.read(MAX_SIZE + 1)
+    if len(file_bytes) > MAX_SIZE:
+        raise HTTPException(status_code=413, detail="File too large. Maximum size is 20 MB.")
+
+    filename = file.filename or "upload.txt"
+    fmt = detect_format(filename, file_bytes)
+    logger.info(f"API: Detected format '{fmt}' for file '{filename}'")
+
     content = ""
-    if file.filename and file.filename.lower().endswith(".pdf"):
+    script_format = fmt
+
+    if fmt == "pdf":
         try:
-            pdf_reader = PdfReader(io.BytesIO(file_bytes))
-            content = "\n".join([page.extract_text() for page in pdf_reader.pages if page.extract_text()])
+            with pdfplumber.open(io.BytesIO(file_bytes)) as pdf:
+                pages = [p.extract_text() or "" for p in pdf.pages]
+            content = "\n".join(pages)
         except Exception as e:
             logger.error(f"Error parsing PDF: {e}")
             raise HTTPException(status_code=400, detail="Could not extract text from PDF.")
-    else:
+
+    elif fmt == "docx":
         try:
-            content = bytes(file_bytes).decode("utf-8")
+            content = extract_docx_text(file_bytes)
+        except ImportError:
+            raise HTTPException(status_code=400, detail="python-docx is required to read .docx files. Run: pip install python-docx")
+        except Exception as e:
+            logger.error(f"Error parsing DOCX: {e}")
+            raise HTTPException(status_code=400, detail="Could not extract text from Word document.")
+
+    elif fmt == "fdx":
+        try:
+            content = file_bytes.decode("utf-8", errors="replace")
+        except Exception as e:
+            raise HTTPException(status_code=400, detail="Could not read FDX file.")
+
+    else:
+        # text or fountain — decode as UTF-8 with fallback
+        try:
+            content = file_bytes.decode("utf-8")
         except UnicodeDecodeError:
             try:
-                content = bytes(file_bytes).decode("latin-1")
+                content = file_bytes.decode("latin-1")
             except Exception as e:
                 logger.error(f"Error decoding file: {e}")
-                raise HTTPException(status_code=400, detail="Cannot decode file content. Please upload a structured text or PDF document.")
-                
+                raise HTTPException(status_code=400, detail="Cannot decode file content.")
+
     if not content.strip():
         raise HTTPException(status_code=400, detail="The uploaded document is empty or unreadable.")
 
@@ -307,7 +347,8 @@ async def generate_storyboard(project_id: str, config: ProviderConfig):
                        "Please ensure the file contains readable text content."
             )
         
-        frames: list = await engine.analyze_script(scenes)
+        storyboard_style = config.storyboard_style or "oscar_prestige"
+        frames: list = await engine.analyze_script(scenes, storyboard_style=storyboard_style)
         
         # Clear old frames for this project if any
         db.query(StoryboardFrame).filter(StoryboardFrame.project_id == project_id).delete()
@@ -319,9 +360,15 @@ async def generate_storyboard(project_id: str, config: ProviderConfig):
                 id=str(uuid.uuid4()),
                 project_id=project_id,
                 scene_number=frame['scene_number'],
+                heading=frame.get('heading', ''),
                 description=frame['description'],
                 intensity_score=frame['intensity_score'],
-                intensity_type=frame['intensity_type']
+                intensity_type=frame['intensity_type'],
+                moment_summary=frame.get('moment_summary', ''),
+                shot_type=frame.get('shot_type', ''),
+                camera_movement=frame.get('camera_movement', ''),
+                lens=frame.get('lens', ''),
+                lighting=frame.get('lighting', ''),
             )
             db.add(db_frame)
         
@@ -353,11 +400,12 @@ async def generate_frame_image(frame_id: str):
         config = db.query(ProviderConfiguration).first()
         if not config:
              raise HTTPException(status_code=400, detail="AI Provider not configured")
-             
+
         provider = get_provider(config)
         engine = StoryboardEngine(provider)
-        
-        result = await engine.generate_visual(frame.description, genre="drama")
+        saved_style = config.storyboard_style or "oscar_prestige"
+
+        result = await engine.generate_visual(frame.description, genre="drama", storyboard_style=saved_style)
         
         image_url = result.get("image_url", "")
         frame.image_path = image_url

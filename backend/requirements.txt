@@ -13,3 +13,7 @@ reportlab
 google-generativeai
 groq
 starlette
+httpx
+pdfplumber
+python-docx
+lxml
