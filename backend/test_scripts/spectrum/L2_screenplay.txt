@@ -1,0 +1,108 @@
+STORYBOARD AI — QUALITY SPECTRUM: LEVEL 2 (PROFESSIONAL)
+Format: Plain Text Screenplay
+Story: "The Witness" — A detective questions a diner waitress who saw a murder.
+
+Level 2 is professional working-writer quality. Competent craft. The scene
+moves, breathes, and has shape. Characters have voices. There is subtext.
+This gets produced. It does not get remembered.
+
+================================================================================
+
+FADE IN:
+
+INT. ALL-NIGHT DINER — 3 A.M.
+
+The kind of place that survives on insomnia and cheap coffee. DETECTIVE HARRIS (50s, twenty-six years on the job, still takes notes by hand) sits across from MARY CHEN (40s, uniform, the practiced stillness of someone who has learned to wait things out).
+
+A half-eaten slice of pie sits untouched between them. Neither ordered it.
+
+HARRIS
+You've been on since six?
+
+MARY
+Since five. We were short-staffed.
+
+HARRIS
+Long shift.
+
+MARY
+They're all long.
+
+Harris opens his notebook. Studies something already written there.
+
+HARRIS
+The man who ran out. You told the
+first officer he was wearing a jacket.
+
+MARY
+Black. Leather. He left in a hurry.
+
+HARRIS
+Did he pay?
+
+MARY
+No.
+
+HARRIS
+But you didn't call it in.
+
+A beat. The kind of beat that has weight.
+
+MARY
+People walk out on checks sometimes.
+I didn't know what had happened outside.
+
+HARRIS
+(not looking up)
+But you knew something had happened.
+
+Mary refills his coffee without being asked. Her hands are steady. Harris watches them.
+
+HARRIS (CONT'D)
+You ever see him before?
+
+MARY
+I see a lot of people.
+
+HARRIS
+That's not what I asked.
+
+She sets the coffee pot down. Meets his eyes for the first time.
+
+MARY
+No. I'd never seen him before.
+
+The fluorescents hum. Outside, a police radio crackles in someone's car.
+
+HARRIS
+(standing, pocketing his notebook)
+We'll probably need you to come in.
+Look at some photographs.
+
+MARY
+I understand.
+
+He leaves money on the table — more than the coffee costs. Mary watches him go, then looks down at the exact spot where the man in the black jacket was sitting two hours ago.
+
+She picks up his cup. Carries it to the back.
+
+FADE OUT.
+
+================================================================================
+LEVEL 2 ANALYSIS:
+
+What works:
+  - Specific physical details that carry meaning (the half-eaten pie, the steady hands)
+  - Characters have distinct presence — Harris has a career, Mary has a strategy
+  - Subtext is present and consistent (Mary is lying, we feel it)
+  - The scene has shape: arrival, mounting pressure, departure, coda
+  - "She refills his coffee without being asked" — behavior that reveals character
+  - The ending image (carrying away the cup) does interpretive work
+
+What could be stronger at Level 3:
+  - The action lines are competent but not yet specific enough to be visual poetry
+  - Harris and Mary are types who are becoming people, but not yet fully realized
+  - The scene's thematic resonance (complicity, survival, the cost of silence)
+    is implied but not yet embodied in the physical world
+  - "The kind of place that survives on insomnia" — good, but the language
+    could be more earned, more precise

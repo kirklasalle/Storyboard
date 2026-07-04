@@ -1,0 +1,69 @@
+STORYBOARD AI — QUALITY SPECTRUM: LEVEL 1 (BASIC)
+Format: Plain Text Screenplay
+Story: "The Witness" — A detective questions a diner waitress who saw a murder.
+
+Level 1 is functional. It communicates the facts. A first draft, a student exercise.
+The story is present. The craft is not yet awake.
+
+================================================================================
+
+FADE IN:
+
+INT. DINER - NIGHT
+
+A detective sits at a table. Across from him is a woman who works there.
+
+DETECTIVE HARRIS
+You were working when it happened?
+
+MARY
+Yes. I was here all night.
+
+DETECTIVE HARRIS
+Did you see anything?
+
+MARY
+I saw a man run out. He was wearing
+a black jacket.
+
+DETECTIVE HARRIS
+Did you recognize him?
+
+MARY
+No. I didn't know him.
+
+She looks down at the table.
+
+DETECTIVE HARRIS
+Are you sure about that?
+
+MARY
+Yes. I'm sure.
+
+Harris writes something in his notebook.
+
+DETECTIVE HARRIS
+Okay. We might need to talk to you again.
+
+MARY
+Okay.
+
+He gets up and leaves. Mary watches him go.
+
+FADE OUT.
+
+================================================================================
+LEVEL 1 ANALYSIS:
+
+What works:
+  - The facts are communicated
+  - The format is technically correct
+  - A reader understands the scene's purpose
+
+What is missing:
+  - No physical specificity (what does Harris look like? What is Mary doing?)
+  - Dialogue explains itself — no subtext, no implication
+  - No atmosphere — "a diner" tells us nothing
+  - "She looks down at the table" is the only emotional signal — and it's generic
+  - No sense of time, history, or what this moment costs anyone
+  - Harris and Mary are functions, not people

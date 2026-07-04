@@ -2,7 +2,7 @@ from fastapi import FastAPI, UploadFile, File, BackgroundTasks, HTTPException, R
 from fastapi.responses import JSONResponse # type: ignore
 from fastapi.middleware.cors import CORSMiddleware # type: ignore
 from models.schemas import ProjectCreate, ScriptUpload, ProviderConfig # type: ignore
-from database.models import init_db, SessionLocal, Project, Script, StoryboardFrame, ProviderConfiguration # type: ignore
+from database.models import init_db, SessionLocal, Project, Script, Scene, Character, StoryboardFrame, ProviderConfiguration # type: ignore
 from script_parser import ScriptParser # type: ignore
 from storyboard_engine import StoryboardEngine # type: ignore
 from providers.openai_provider import OpenAIProvider # type: ignore
@@ -16,6 +16,8 @@ from governance import GovernanceEngine  # type: ignore
 from knowledge_base import CinematicKnowledgeBase  # type: ignore
 from content_agreement import get_agreement, log_acceptance  # type: ignore
 from crypto_utils import encrypt_api_key, decrypt_api_key  # type: ignore
+from character_library import CharacterLibrary  # type: ignore
+import json
 import uvicorn # type: ignore
 import uuid
 import os
@@ -42,6 +44,9 @@ init_db()
 
 # ── Cinematic Knowledge Base (Second Brain) ───────────────────────────────────
 knowledge_base = CinematicKnowledgeBase(SessionLocal)
+
+# ── Character Library (Growing Archetype Database) ────────────────────────────
+character_library = CharacterLibrary(SessionLocal)
 
 app = FastAPI(
     title="Storyboard AI API",
@@ -124,6 +129,107 @@ async def teach_knowledge(entry: dict):
         confidence=float(entry.get("confidence", 0.8)),
     )
     return {"status": "learned", "id": entry_id}
+
+# ── Character Library Endpoints ───────────────────────────────────────────────
+
+@app.get("/characters/library")
+async def get_character_library(role: str = None, genre_type: str = None, limit: int = 100):
+    """List archetypes from the global character library."""
+    return character_library.list_archetypes(role=role, genre_type=genre_type, limit=limit)
+
+@app.get("/characters/library/stats")
+async def get_character_library_stats():
+    """Return statistics and taxonomy for the character library."""
+    return character_library.get_stats()
+
+@app.get("/characters/library/taxonomy")
+async def get_character_taxonomy():
+    """Return the complete character type taxonomy (all roles, archetypes, tiers, genre types)."""
+    return CharacterLibrary.get_full_taxonomy()
+
+@app.get("/projects/{project_id}/characters")
+async def get_project_characters(project_id: str):
+    """Return all characters profiled for a project."""
+    from database.models import Character  # type: ignore
+    db = SessionLocal()
+    try:
+        chars = db.query(Character).filter(Character.project_id == project_id).all()
+        return [
+            {
+                "id": c.id, "name": c.name, "description": c.description,
+                "age_range": c.age_range, "role": c.role, "wardrobe": c.wardrobe,
+                "visual_prompt": c.visual_prompt, "voice_id": c.voice_id,
+                "voice_description": c.voice_description, "voice_notes": c.voice_notes,
+                "first_scene": c.first_scene, "scene_count": c.scene_count,
+                "line_count": c.line_count, "is_lead": c.is_lead,
+            }
+            for c in chars
+        ]
+    finally:
+        db.close()
+
+@app.get("/projects/{project_id}/scenes")
+async def get_project_scenes(project_id: str):
+    """Return all persisted scenes for a project."""
+    from database.models import Scene  # type: ignore
+    db = SessionLocal()
+    try:
+        scenes = db.query(Scene).filter(Scene.project_id == project_id).order_by(Scene.scene_number).all()
+        return [
+            {
+                "id": s.id, "scene_number": s.scene_number, "heading": s.heading,
+                "content": s.content, "characters": json.loads(s.characters or "[]"),
+            }
+            for s in scenes
+        ]
+    finally:
+        db.close()
+
+@app.get("/projects/{project_id}/export/shot-list.csv")
+async def export_shot_list(project_id: str):
+    """
+    Export a professional shot list CSV — the document DPs and ADs use on set.
+    Columns: Scene #, Heading, Shot Type, Camera Movement, Lens,
+             Lighting, Intensity, Type, Characters, Moment Summary
+    """
+    from fastapi.responses import Response as _Resp
+    import csv as _csv
+    import io as _io
+    db = SessionLocal()
+    try:
+        project = db.query(Project).filter(Project.id == project_id).first()
+        if not project:
+            raise HTTPException(status_code=404, detail="Project not found")
+        frames = (
+            db.query(StoryboardFrame)
+            .filter(StoryboardFrame.project_id == project_id)
+            .order_by(StoryboardFrame.scene_number)
+            .all()
+        )
+        output = _io.StringIO()
+        writer = _csv.writer(output)
+        writer.writerow([
+            "Scene #", "Scene Heading", "Shot Type", "Camera Movement", "Lens",
+            "Lighting", "Intensity Score", "Intensity Type", "Characters", "Moment Summary"
+        ])
+        for f in frames:
+            chars = ", ".join(json.loads(f.scene_characters or "[]"))
+            writer.writerow([
+                f.scene_number, f.heading or "", f.shot_type or "",
+                f.camera_movement or "", f.lens or "", f.lighting or "",
+                f"{f.intensity_score:.1f}" if f.intensity_score else "",
+                f.intensity_type or "", chars, f.moment_summary or "",
+            ])
+        csv_content = output.getvalue()
+        filename = f"shot-list-{(project.name or project_id[:8]).replace(' ', '-').lower()}.csv"
+        logger.info(f"EXPORT: Shot list generated for project {project_id} ({len(frames)} frames)")
+        return _Resp(
+            content=csv_content,
+            media_type="text/csv",
+            headers={"Content-Disposition": f"attachment; filename=\"{filename}\""},
+        )
+    finally:
+        db.close()
 
 @app.get("/providers/local/models")
 async def get_local_models(base_url: str = "http://127.0.0.1:11434"):
@@ -421,7 +527,23 @@ async def generate_storyboard(project_id: str, config: ProviderConfig):
                 detail="Could not identify any scenes or sections in the uploaded document. "
                        "Please ensure the file contains readable text content."
             )
-        
+
+        # ── Persist scenes to DB (foundation for re-generation + versioning) ─
+        db.query(Scene).filter(Scene.project_id == project_id).delete()
+        for idx, scene in enumerate(scenes):
+            db_scene = Scene(
+                id=str(uuid.uuid4()),
+                project_id=project_id,
+                script_id=script.id,
+                scene_number=idx + 1,
+                heading=scene.get("heading", f"Scene {idx + 1}"),
+                content=scene.get("text", ""),
+                characters=json.dumps(scene.get("characters", [])),
+            )
+            db.add(db_scene)
+        db.commit()
+        logger.info(f"API: {len(scenes)} scenes persisted to DB")
+
         storyboard_style = config.storyboard_style or "oscar_prestige"
         frames: list = await engine.analyze_script(scenes, storyboard_style=storyboard_style)
         
@@ -431,6 +553,9 @@ async def generate_storyboard(project_id: str, config: ProviderConfig):
         # Save to DB
         logger.info(f"API: Saving {len(frames)} analyzed frames to database...")
         for frame in frames:
+            scene_chars = json.dumps(
+                next((s.get("characters", []) for s in scenes if scenes.index(s) + 1 == frame['scene_number']), [])
+            )
             db_frame = StoryboardFrame(
                 id=str(uuid.uuid4()),
                 project_id=project_id,
@@ -444,6 +569,7 @@ async def generate_storyboard(project_id: str, config: ProviderConfig):
                 camera_movement=frame.get('camera_movement', ''),
                 lens=frame.get('lens', ''),
                 lighting=frame.get('lighting', ''),
+                scene_characters=scene_chars,
             )
             db.add(db_frame)
         
@@ -451,14 +577,41 @@ async def generate_storyboard(project_id: str, config: ProviderConfig):
         logger.info(f"API: Generation and DB persistence complete for project {project_id}")
         GovernanceEngine.audit_generation(project_id, len(frames), storyboard_style)
 
-        # ── Knowledge Base: async distill insights in background ─────────────
+        # ── Character Extraction ─────────────────────────────────────────────
         script_title = script.filename or "Untitled Script"
+        try:
+            char_profiles = await engine.extract_characters(scenes, genre="drama", script_title=script_title)
+            db.query(Character).filter(Character.project_id == project_id).delete()
+            for cp in char_profiles:
+                db_char = Character(
+                    id=str(uuid.uuid4()),
+                    project_id=project_id,
+                    name=cp["name"],
+                    description=cp.get("description", ""),
+                    age_range=cp.get("age_range", ""),
+                    role=cp.get("role", "supporting"),
+                    wardrobe=cp.get("wardrobe", ""),
+                    visual_prompt=cp.get("visual_prompt", ""),
+                    voice_id=cp.get("voice_id", "alloy"),
+                    voice_description=cp.get("voice_description", ""),
+                    first_scene=cp.get("first_scene", 1),
+                    scene_count=cp.get("scene_count", 0),
+                    line_count=cp.get("line_count", 0),
+                    is_lead=cp.get("is_lead", False),
+                )
+                db.add(db_char)
+            db.commit()
+            logger.info(f"API: {len(char_profiles)} character profiles saved for project {project_id}")
+        except Exception as char_err:
+            logger.warning(f"API: Character extraction skipped: {char_err}")
+
+        # ── Knowledge Base: distill insights ─────────────────────────────────
         try:
             learned = await knowledge_base.distill_insights_from_analysis(
                 provider=provider,
                 scenes=scenes,
                 frames=frames,
-                genre="drama",  # best-effort — genre was determined inside engine
+                genre="drama",
                 script_title=script_title,
             )
             logger.info(f"KB: Distilled {learned} new insights from '{script_title}'")

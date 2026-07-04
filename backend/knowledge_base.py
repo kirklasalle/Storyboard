@@ -207,6 +207,52 @@ SEED_WISDOM: List[Dict[str, Any]] = [
         "source": "Seed Wisdom",
         "confidence": 0.98,
     },
+    {
+        "type": KnowledgeType.NARRATIVE,
+        "title": "The Three Levels of Story Quality",
+        "content": (
+            "Level 1: The audience knows what happened. "
+            "Level 2: The audience feels the tension. "
+            "Level 3: The audience carries something home. "
+            "The distance from Level 1 to Level 3 is not vocabulary or technique — "
+            "it is specificity earned by observation, subtext earned by trusting the reader, "
+            "and the image that does the work the words no longer need to."
+        ),
+        "genre": "all",
+        "tags": ["craft", "quality", "levels", "specificity", "subtext", "image"],
+        "source": "ACS4.6 — Quality Spectrum",
+        "confidence": 1.0,
+    },
+    {
+        "type": KnowledgeType.CINEMATOGRAPHY,
+        "title": "The Final Image is the Scene's Real Last Line",
+        "content": (
+            "In great cinema, the final image of a scene says what the dialogue was "
+            "building toward but could not say directly. A cup of coffee steaming at "
+            "an empty seat. A door slowly closing. A hand opening and then not. "
+            "The writer's job is to build toward this image; the storyboard artist's "
+            "job is to recognize it and make it the frame."
+        ),
+        "genre": "all",
+        "tags": ["final-image", "visual-conclusion", "scene-ending", "subtext", "symbolism"],
+        "source": "ACS4.6 — Quality Spectrum",
+        "confidence": 0.99,
+    },
+    {
+        "type": KnowledgeType.TECHNICAL,
+        "title": "The Empty Seat — Objects as Absent Characters",
+        "content": (
+            "The most powerful presences in cinema are sometimes absences. "
+            "An empty chair, a half-eaten meal, a coat on a hook — these carry "
+            "the full weight of whoever is not in them. The storyboard artist "
+            "who understands this will always find the most powerful frame "
+            "is often the one without the character in it."
+        ),
+        "genre": "drama",
+        "tags": ["absence", "objects", "empty-space", "grief", "presence"],
+        "source": "ACS4.6 — Quality Spectrum",
+        "confidence": 0.99,
+    },
 ]
 
 

@@ -99,6 +99,7 @@ Plus 3 existing legacy test scripts: `noir_3min.txt`, `drama_5min.txt`, `sci_fi_
 ### 5.4 Format Benchmark Tool
 
 Run `python backend/benchmark_formats.py` to generate a full performance report:
+
 * Parse time (milliseconds) per document
 * Format detection accuracy
 * Scene count, character count, word count
@@ -112,6 +113,7 @@ Run `python backend/benchmark_formats.py` to generate a full performance report:
 ### 6.1 User Content Agreement (Immutable)
 
 All submitted writing is governed by the **Storyboard AI User Content Agreement** (`backend/content_agreement.py`). This agreement is:
+
 * **Irrevocable** upon submission
 * **Immutable** — cannot be modified without a Governance Council review
 * **Governed** by Kirk LaSalle's Permanent Active Directives (The 10 Laws)
@@ -151,6 +153,7 @@ The Cinematic Knowledge Base grows with every script analyzed:
 ## 7. Governance Framework
 
 All autonomous AI operations in Storyboard AI are governed by:
+
 * **PRISM Agentic Prime Directive** (`AGENTIC_PRIME_DIRECTIVE.md`)
 * **PRISM Sacred Covenant** (`AGENTIC_SACRED_COVENANT.md`)
 * **Kirk LaSalle's Permanent Active Directives** (`Permanent_Active_Directives.txt`) — The 10 Laws

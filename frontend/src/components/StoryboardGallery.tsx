@@ -509,8 +509,8 @@ export const StoryboardGallery: React.FC<StoryboardGalleryProps> = ({ projectId,
                                             Cinematography Spec
                                         </span>
                                         <span className={`text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${frame.intensity_type === 'Action Peak' ? 'bg-orange-500/20 text-orange-400' :
-                                                frame.intensity_type === 'Emotional Peak' ? 'bg-rose-500/20 text-rose-400' :
-                                                    'bg-slate-700/50 text-slate-400'
+                                            frame.intensity_type === 'Emotional Peak' ? 'bg-rose-500/20 text-rose-400' :
+                                                'bg-slate-700/50 text-slate-400'
                                             }`}>
                                             {frame.intensity_type || 'Scene'}
                                         </span>

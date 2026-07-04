@@ -174,15 +174,28 @@ Rules:
         self,
         frame_description: str,
         genre: str = "drama",
-        storyboard_style: str = "oscar_prestige"
+        storyboard_style: str = "oscar_prestige",
+        character_profiles: Optional[List[Dict[str, Any]]] = None,
     ) -> dict:
         """Generates an image for a single frame description. Returns structured result."""
         style = get_style(storyboard_style)
         style_guidance = get_style_guidance(genre.lower())
 
+        # Build character consistency context
+        char_context = ""
+        if character_profiles:
+            char_lines = []
+            for cp in character_profiles:
+                if cp.get("visual_prompt"):
+                    char_lines.append(cp["visual_prompt"])
+            if char_lines:
+                char_context = "Character appearance consistency: " + "; ".join(char_lines) + ". "
+                logger.debug(f"ENGINE: Injecting {len(char_lines)} character profiles into image prompt")
+
         enhanced_prompt = (
             f"{style['prompt_prefix']}. "
             f"Scene: {frame_description}. "
+            f"{char_context}"
             f"Cinematography: {style_guidance['visual_style']} "
             f"Color palette: {style['color_palette']}. "
             f"Lighting: {style['lighting']}. "
@@ -202,7 +215,7 @@ Rules:
                 "attempts": [{"model": "provider-default", "status": "success"}]
             }
         except Exception as e:
-            logging.warning(f"ENGINE: Provider image generation failed ({e}), falling back to Pollinations.ai")
+            logger.warning(f"ENGINE: Provider image generation failed ({e}), falling back to Pollinations.ai")
             attempts = getattr(e, 'attempts', [])
             attempts.append({
                 "model": "Pollinations.ai (Free)",
@@ -216,6 +229,127 @@ Rules:
                 "provider": "Pollinations.ai (Free Fallback)",
                 "attempts": attempts
             }
+
+    async def extract_characters(
+        self,
+        scenes: List[Dict[str, Any]],
+        genre: str = "drama",
+        script_title: str = "Untitled",
+    ) -> List[Dict[str, Any]]:
+        """
+        Extract all named characters from parsed scenes and build visual +
+        voice profiles for each. Returns a list of character dicts ready
+        to be saved to the Character table.
+
+        Each character dict contains:
+          name, description, age_range, role, wardrobe, visual_prompt,
+          voice_id, voice_description, first_scene, scene_count, line_count, is_lead
+        """
+        # Collect all character names across all scenes
+        char_scene_map: Dict[str, List[int]] = {}
+        for scene in scenes:
+            scene_num = scene.get("scene_number", scenes.index(scene) + 1)
+            for char_name in scene.get("characters", []):
+                clean = char_name.strip()
+                if not clean or len(clean) < 2:
+                    continue
+                if clean not in char_scene_map:
+                    char_scene_map[clean] = []
+                char_scene_map[clean].append(scene_num)
+
+        if not char_scene_map:
+            logger.info("ENGINE: No named characters found in scenes")
+            return []
+
+        logger.info(f"ENGINE: Extracting profiles for {len(char_scene_map)} characters in '{script_title}'")
+
+        # Build a script sample for the LLM
+        all_text = " ".join(s.get("text", "") for s in scenes[:12])[:3000]
+        char_names = sorted(char_scene_map.keys())
+
+        prompt = f"""You are a world-class casting director and character designer analyzing a {genre} screenplay titled "{script_title}".
+
+The following characters appear in this script:
+{chr(10).join(f"- {name} (appears in {len(char_scene_map[name])} scenes)" for name in char_names)}
+
+Script excerpt for context:
+{all_text[:2000]}
+
+For each character, provide a detailed profile. Return ONLY a valid JSON array:
+[
+  {{
+    "name": "CHARACTER NAME",
+    "description": "Full physical appearance: height, build, age, hair, eyes, distinguishing features. Be specific and visual.",
+    "age_range": "30s",
+    "role": "protagonist",
+    "wardrobe": "Signature clothing and style that defines this character visually",
+    "visual_prompt": "Compact image-generation phrase: [gender] [age], [hair], [eyes], [build], [signature wardrobe item], [expression/energy]",
+    "voice_description": "Voice quality for read-through casting: tone, accent, energy",
+    "voice_id": "onyx",
+    "is_lead": true
+  }}
+]
+
+Rules:
+- role must be one of: protagonist, antagonist, supporting, minor
+- voice_id must be one of: alloy, echo, fable, onyx, nova, shimmer
+  (alloy=neutral, echo=male, fable=expressive, onyx=deep male, nova=female warm, shimmer=female light)
+- is_lead: true only for characters with 3+ scenes
+- visual_prompt must be 15-25 words, highly specific, usable in an image generator
+"""
+        try:
+            result_text = await self.provider.generate_text(prompt)
+            json_text = re.search(r'\[[\s\S]*\]', result_text)
+            if not json_text:
+                logger.warning("ENGINE: Could not extract character profiles JSON")
+                return self._fallback_characters(char_scene_map)
+
+            profiles = json.loads(json_text.group(0))
+            result = []
+            for p in profiles:
+                name = p.get("name", "").strip()
+                if not name:
+                    continue
+                result.append({
+                    "name": name,
+                    "description": p.get("description", ""),
+                    "age_range": p.get("age_range", ""),
+                    "role": p.get("role", "supporting"),
+                    "wardrobe": p.get("wardrobe", ""),
+                    "visual_prompt": p.get("visual_prompt", ""),
+                    "voice_description": p.get("voice_description", ""),
+                    "voice_id": p.get("voice_id", "alloy"),
+                    "is_lead": bool(p.get("is_lead", False)),
+                    "first_scene": min(char_scene_map.get(name, [1])),
+                    "scene_count": len(char_scene_map.get(name, [])),
+                    "line_count": 0,  # Populated during dialogue attribution pass
+                })
+            logger.info(f"ENGINE: Character extraction complete — {len(result)} profiles built")
+            return result
+        except Exception as e:
+            logger.error(f"ENGINE: Character extraction failed: {e}", exc_info=True)
+            return self._fallback_characters(char_scene_map)
+
+    def _fallback_characters(self, char_scene_map: Dict[str, List[int]]) -> List[Dict[str, Any]]:
+        """Return minimal character records when LLM extraction fails."""
+        voices = ["alloy", "echo", "fable", "onyx", "nova", "shimmer"]
+        result = []
+        for idx, (name, scenes_list) in enumerate(sorted(char_scene_map.items())):
+            result.append({
+                "name": name,
+                "description": f"Character {name} — visual profile pending analysis",
+                "age_range": "",
+                "role": "protagonist" if idx == 0 else "supporting",
+                "wardrobe": "",
+                "visual_prompt": f"character named {name.lower()}, cinematic portrait",
+                "voice_description": "",
+                "voice_id": voices[idx % len(voices)],
+                "is_lead": len(scenes_list) >= 3,
+                "first_scene": min(scenes_list),
+                "scene_count": len(scenes_list),
+                "line_count": 0,
+            })
+        return result
 
     def _get_pollinations_url(self, prompt: str) -> str:
         """Generate a free image URL via Pollinations.ai (no API key required)."""

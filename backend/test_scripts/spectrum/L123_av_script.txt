@@ -1,0 +1,181 @@
+STORYBOARD AI — A/V SCRIPT QUALITY SPECTRUM
+Three Levels: Basic → Professional → Oscar / World-Class
+Subject: Documentary treatment of "The Witness" — a diner interview.
+Same story. Different craft.
+
+================================================================================
+LEVEL 1 — BASIC A/V SCRIPT
+================================================================================
+
+VIDEO                               | AUDIO
+------------------------------------|-----------------------------------
+                                    |
+Shot of a diner exterior.           | NARRATOR: A woman who works
+                                    | the night shift saw something.
+                                    |
+Interior shot. Tables and counter.  | NARRATOR: She has agreed to
+                                    | talk to us.
+                                    |
+Woman sitting at a table.           | MARY: I saw him leave.
+                                    | He was running.
+                                    |
+Close up of her face.               | MARY: I didn't know what
+                                    | had happened outside.
+                                    |
+Detective walking in.               | NARRATOR: The detective
+                                    | came later that night.
+                                    |
+
+================================================================================
+LEVEL 2 — PROFESSIONAL A/V SCRIPT
+================================================================================
+
+VIDEO                               | AUDIO
+------------------------------------|-----------------------------------
+                                    |
+EXT. SILVER MOON DINER — 3 A.M.   | MUSIC: Low, sustained ambient.
+Establishing. The neon sign.        | Night city sounds underneath.
+Police tape visible across street.  |
+                                    |
+INT. DINER — INTERVIEW SETUP        | LOWER THIRD: MARY CHEN
+Mary Chen sits at the counter,      | Night Shift Waitress, 11 Years
+where she works. Not at a table.    | Silver Moon Diner
+Her choice. We honor it.            |
+                                    |
+MARY on camera, direct.             | MARY (SOT):
+                                    | He was here every Thursday.
+                                    | Same time, same stool,
+                                    | same order. For four years.
+                                    |
+B-ROLL: Empty stool at counter end. | MARY (V.O.):
+Hold on it.                         | You learn things about people
+                                    | from how they sit. Whether
+                                    | they're waiting or resting.
+                                    | He was always resting.
+                                    |
+                                    |
+MARY on camera, direct.             | MARY (SOT):
+                                    | When he ran out — I knew.
+                                    | Not what happened. Just
+                                    | that something had.
+                                    |
+B-ROLL: Coffee cup on counter.      | MUSIC: Rises slightly.
+Steam rising. Untouched.            | NARRATOR (V.O.):
+                                    | She gave her formal statement
+                                    | the following day.
+                                    |
+
+================================================================================
+LEVEL 3 — OSCAR / WORLD-CLASS A/V SCRIPT
+================================================================================
+
+"THE WITNESS"
+A Documentary Short
+
+Director: [Name]
+DP: [Name]
+Editor: [Name]
+
+NOTE ON APPROACH: No reconstruction. No dramatization. The diner,
+the counter, the stool — we shoot them as they are. The empty seat
+carries more information than any actor could.
+
+================================================================================
+
+VIDEO                               | AUDIO
+------------------------------------|-----------------------------------
+                                    |
+EXT. LENA'S ALL-NIGHT — DUSK       | SILENCE.
+We arrive before darkness. We       |
+watch the light change on the       | The city fades in underneath —
+neon sign. We have time.            | distant, unhurried. This is not
+                                    | a film in a hurry.
+The police tape across the street.  |
+It was taken down two days after.   | MUSIC (enters almost inaudibly):
+We shot this the night before.      | Solo piano. Something that
+                                    | understands patience.
+                                    |
+INT. LENA'S ALL-NIGHT — DAWN       | LOWER THIRD:
+                                    | MARY CHEN, 48
+The diner before it opens. 5 A.M.  | Night Shift — Eleven Years
+The clean truth of it: the stools,  | "She asked us to film her
+the counter, the jukebox that       | at the counter, not a table.
+doesn't work. We did not move       | 'This is where I know how
+anything. We lit it with what       | to be,' she said."
+was already there.                  |
+                                    |
+HOLD on the empty stool.            | SILENCE — ten full seconds.
+                                    | (EDITOR: Do not cut this short.
+ECU: the worn vinyl top.            | The audience needs to arrive
+The chrome leg. The floor beneath.  | at the same understanding
+                                    | Mary has already arrived at.)
+                                    |
+MARY — interview, counter,          | MARY (SOT — unrushed, as if
+standing, her choice. We filmed     | explaining something she's
+fourteen minutes of her talking.    | been thinking about for months):
+What you see is what she            |
+wanted kept.                        | "His order was medium roast,
+                                    | two sugars. Every Thursday
+                                    | after ten. Four years.
+                                    | He tipped exactly twenty
+                                    | percent. I think he did the
+                                    | math on his phone."
+                                    |
+                                    | [Beat. She is not performing
+                                    | grief. She is in it.]
+                                    |
+                                    | "He always said thank you
+                                    | like it was a complete sentence."
+                                    |
+B-ROLL: Her hands. She is           | MARY (V.O.):
+polishing a glass, standing         | "I didn't know what he did
+behind the counter. The same        | outside of here. I knew
+motion she has made ten thousand    | who he was in here."
+times. She doesn't stop for         |
+the camera.                         | [Silence after this line.
+                                    | EDITOR: Hold the silence.
+                                    | It is part of the testimony.]
+                                    |
+SLOW PUSH IN: The empty stool.     | MUSIC: Swells gently, then
+The one where he sat.               | withdraws. Like breath.
+                                    |
+Mary walks to it. Off camera she   | AMBIENT SOUND only:
+pours a cup of coffee. Places it    | The hum of the refrigerator.
+on the stool's seat.                | Distant traffic.
+                                    | The jukebox holding its silence.
+She steps back. Looks at it.        |
+Steps out of frame.                 | [No narrator. No explanatory
+                                    | note. The image finishes the
+                                    | story the words began.]
+                                    |
+HOLD on the coffee.                 | FADE TO SILENCE.
+Steam. The empty seat.              |
+The diner going about its day       | TITLE CARD: THE WITNESS
+around it.                          |
+                                    |
+SLOW FADE.                          |
+                                    |
+
+================================================================================
+A/V SPECTRUM ANALYSIS:
+
+Level 1 — Video describes. Audio explains. No relationship between them.
+          The two columns might as well be separate documents.
+
+Level 2 — Video and audio work together. B-roll is intentional.
+          The empty stool appears. Interview subject has texture.
+          Lower thirds are informative. Pacing is professional.
+
+Level 3 — The two columns are in active conversation.
+          SILENCE is a deliberate editorial instruction — "ten full seconds.
+          Do not cut this short." The EDITOR note is part of the script.
+          The camera has a relationship with the subject, not just access to them.
+          The final image (coffee on the stool) is discussed in the director's note
+          before it appears — the documentary's structure is pre-announced by the craft.
+          The NOTE ON APPROACH is part of the script: a directorial philosophy
+          that governs every subsequent choice.
+
+The difference between Level 2 and Level 3 in documentary A/V writing
+is not the facts you include.
+It is the relationship you declare with your subject before you press record.
+================================================================================
