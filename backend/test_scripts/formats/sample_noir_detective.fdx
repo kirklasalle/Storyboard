@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<FinalDraft DocumentType="Script" Template="No" Version="4">
+  <Content>
+
+    <Paragraph Type="Scene Heading">
+      <Text>INT. RAIN-SOAKED DETECTIVE AGENCY - NIGHT</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>A single lamp. Smoke-thick air. DETECTIVE VERA CROSS (40s, suits that have seen better decades) stands at the window watching the neon below streak through rain. On the desk: one photograph. One name written in blood-red lipstick on the mirror: CASTELLAN.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>VERA</Text>
+    </Paragraph>
+    <Paragraph Type="Parenthetical">
+      <Text>(to the mirror)</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Three murders. Same weapon. Different boroughs. You're not careful, Mr. Castellan. You're arrogant.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Scene Heading">
+      <Text>INT. DETECTIVE AGENCY - CONTINUOUS</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>The door opens. TOMMY LARK (20s, newsboy cap, ink-stained fingers) slips in without knocking. He carries a brown envelope like it might bite him.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>TOMMY</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Message from the port. Someone left this at the harbormaster's office. It's addressed to you, Miss Cross. No postage. Just your name.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Vera takes the envelope without touching the seal. She holds it to the light. Inside: a key. Heavy. Old. And a card that reads simply: Pier 9. Midnight. Come alone or I tell them where your brother is.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>VERA</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Who brought this?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>TOMMY</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>That's the thing, Miss Cross. Harbormaster says nobody brought it. It was just there. Like it had always been there.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Vera puts on her coat. She checks the revolver at her hip. Outside, the rain intensifies — a drumroll for what comes next.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Scene Heading">
+      <Text>EXT. PIER 9 - MIDNIGHT</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Black water. Fog so thick it has weight. The pier stretches into nothing. Vera walks it alone, heels ringing on wet wood. Behind her, the city is a smear of light. Ahead: darkness absolute.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>A shape detaches from the dark. CASTELLAN (60s, expensive coat, eyes like two old coins) steps forward. He holds nothing. He needs nothing.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>CASTELLAN</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>You're exactly like your father, Detective Cross. He came when called too.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>VERA</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>And where is my father now?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>CASTELLAN</Text>
+    </Paragraph>
+    <Paragraph Type="Parenthetical">
+      <Text>(a cold smile)</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>That depends entirely on what you do in the next thirty seconds.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>From the fog, three SILHOUETTES emerge. Vera's hand goes to her hip. The world narrows to this pier, this fog, this choice.</Text>
+    </Paragraph>
+    <Paragraph Type="Transition">
+      <Text>SMASH CUT TO BLACK.</Text>
+    </Paragraph>
+
+    <Paragraph Type="Scene Heading">
+      <Text>INT. POLICE PRECINCT - INTERROGATION ROOM - MORNING</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Harsh fluorescent light. Vera sits across from CHIEF MALONE (60s, the kind of tired that comes from decades of looking the other way). A file sits between them. Vera's hands are steady. The Chief's are not.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>CHIEF MALONE</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Three bodies, Cross. All connected to Castellan. The D.A. wants this closed yesterday.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>VERA</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>The D.A. works for Castellan. Has for twenty years. You know that.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Silence. The Chief opens the file. Inside: Vera's brother's face on a missing persons report. She doesn't flinch.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>CHIEF MALONE</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Walk away from this case, Vera. For your family's sake.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>VERA</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>My father walked away. Look how that ended.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>She stands. She walks out. The Chief watches her go, and his expression is not relief. It is grief.</Text>
+    </Paragraph>
+
+  </Content>
+</FinalDraft>

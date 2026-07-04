@@ -1,0 +1,80 @@
+AUDIO/VISUAL SCRIPT
+Title: THE GRAMMAR OF LIGHT — A Documentary About Cinematography
+Format: A/V Two-Column Script
+Producer: Storyboard AI Demo
+Draft: July 3, 2026
+Runtime: Approx. 4 minutes
+
+================================================================================
+
+VIDEO                                   | AUDIO
+----------------------------------------|----------------------------------------
+                                        |
+FADE IN:                                | MUSIC: A single piano note. Held.
+                                        | Then strings enter, low and searching.
+----------------------------------------|----------------------------------------
+                                        |
+EXT. FILM SET — MAGIC HOUR             | NARRATOR (V.O.):
+Wide shot. A film set at golden hour.   | Every story begins the same way.
+Crew moves like a ballet. Camera        | Someone picks up a camera. And asks:
+operator kneels at a 35mm Arriflex.     | what does the truth look like?
+                                        |
+                                        |
+----------------------------------------|----------------------------------------
+                                        |
+ARCHIVAL FOOTAGE — 1920s               | NARRATOR (V.O.):
+Flickering black and white. Figures     | The first cinematographers were
+move through streets. Title cards.      | painters working with time. They had
+Iris wipes. Shadow play.                | no grammar. No tradition. Only light
+                                        | and the patience to capture it.
+                                        |
+                                        | MUSIC: Becomes warmer. Old recording.
+----------------------------------------|----------------------------------------
+                                        |
+INT. INTERVIEW — CINEMATOGRAPHER       | INTERVIEW SUBJECT (sync sound):
+DP ELENA VASQUEZ (60s) sits in a       | The first time I held a camera —
+director's chair. Practicals behind    | really held one, not just pointed it —
+her. She speaks with her hands.         | I understood that I wasn't recording
+                                        | reality. I was interpreting it.
+                                        |
+----------------------------------------|----------------------------------------
+                                        |
+CLOSE-UP: LENS ELEMENTS               | NARRATOR (V.O.):
+Macro lens, glass elements catch        | The cinematographer's tools have
+light. Beautiful alien geometry.        | evolved. But the fundamental act
+                                        | remains unchanged: the choice
+                                        | of what to include, and what to
+                                        | leave in shadow.
+                                        |
+----------------------------------------|----------------------------------------
+                                        |
+MONTAGE — GREAT CINEMATOGRAPHY        | NARRATOR (V.O.) CONT'D:
+Brief clips (rights-cleared or          | From Toland's deep focus in Citizen
+original recreation footage):           | Kane... to Lubezki's unbroken takes
+  1. Deep focus interior               | in The Revenant... to Deakins' golden
+  2. Long tracking shot                | light in Blade Runner 2049...
+  3. Golden hour exterior              |
+  4. Handheld intimate close-up        | MUSIC: Builds in layers.
+                                        |
+----------------------------------------|----------------------------------------
+                                        |
+INT. INTERVIEW — ELENA VASQUEZ        | ELENA VASQUEZ (sync sound):
+She leans forward.                      | A good frame is a complete argument.
+                                        | You're saying: look here, not there.
+                                        | This matters, not that. That's not
+                                        | just technique. That's a point of view.
+                                        | That's a philosophy.
+                                        |
+----------------------------------------|----------------------------------------
+                                        |
+EXT. FILM SET — NIGHT                  | NARRATOR (V.O.):
+The crew sets up a complex night shot.  | And so the work continues.
+D.P. and Director huddle over a        | Frame by frame. Light by light.
+monitor. The monitor glows blue         |
+in the darkness.                        | MUSIC: Final chord. Silence.
+                                        |
+FADE TO BLACK.                          | TITLE CARD: THE GRAMMAR OF LIGHT
+                                        |
+================================================================================
+
+END OF SCRIPT

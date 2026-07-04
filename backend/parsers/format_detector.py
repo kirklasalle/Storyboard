@@ -56,19 +56,32 @@ def detect_format(filename: str, file_bytes: bytes) -> ScriptFormat:
 
 
 def _looks_like_fountain(sample: str) -> bool:
-    """Heuristic: does this look like Fountain-format text?"""
+    """
+    Heuristic: does this look like Fountain-format text?
+
+    A genuine Fountain title page has MULTIPLE key:value pairs at the top
+    (e.g. Title:, Author:, Draft date:). A single isolated Author: line
+    in another format's header should NOT trigger this.
+    Requires score >= 4 (i.e. at least 2 distinct title-page keys).
+    """
     import re
     lines = sample.split("\n")[:30]
     fountain_indicators = 0
+    title_page_keys_found = set()
     for line in lines:
         s = line.strip()
-        # Forced scene heading
+        # Forced scene heading (.SCENE HEADING)
         if re.match(r'^\.\s+[A-Z]', s):
+            fountain_indicators += 3
+        # Title page key — only score once per unique key to prevent single-key inflation
+        m = re.match(r'^(Title|Author|Draft date|Credit|Source|Notes|Copyright|Contact):', s)
+        if m:
+            key = m.group(1).lower()
+            if key not in title_page_keys_found:
+                title_page_keys_found.add(key)
+                fountain_indicators += 2
+        # Centered action >TEXT<
+        if s.startswith(">") and s.endswith("<") and len(s) > 2:
             fountain_indicators += 2
-        # Title page key
-        if re.match(r'^(Title|Author|Draft date|Credit|Source|Notes|Copyright|Contact):', s):
-            fountain_indicators += 2
-        # Centered action
-        if s.startswith(">") and s.endswith("<"):
-            fountain_indicators += 1
-    return fountain_indicators >= 2
+    # Require multiple evidence signals — single Author: line is not enough
+    return fountain_indicators >= 4

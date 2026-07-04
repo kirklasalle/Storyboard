@@ -14,6 +14,7 @@ from providers.groq_provider import GroqProvider # type: ignore
 from logging_config import configure_logging  # type: ignore
 from governance import GovernanceEngine  # type: ignore
 from knowledge_base import CinematicKnowledgeBase  # type: ignore
+from content_agreement import get_agreement, log_acceptance  # type: ignore
 import uvicorn # type: ignore
 import uuid
 import os
@@ -78,6 +79,11 @@ async def log_requests(request: Request, call_next):
     GovernanceEngine.audit_api_call(request.url.path)
     return response
 
+
+@app.get("/agreement")
+async def get_content_agreement():
+    """Returns the full User Content Agreement."""
+    return get_agreement()
 
 @app.get("/styles")
 async def get_styles():
@@ -326,6 +332,10 @@ async def upload_script(project_id: str, file: UploadFile = File(...)):
     filename = file.filename or "upload.txt"
     fmt = detect_format(filename, file_bytes)
     logger.info(f"API: Detected format '{fmt}' for file '{filename}'")
+
+    # Content Agreement: log irrevocable acceptance upon submission (Law 7 — transparency)
+    log_acceptance(project_id, filename)
+    GovernanceEngine.audit_data_access(f"script_upload:{filename}", "WRITE")
 
     content = ""
     script_format = fmt

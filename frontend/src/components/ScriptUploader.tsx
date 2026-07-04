@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Upload, FileText, CheckCircle, AlertCircle } from 'lucide-react';
+import { Upload, FileText, CheckCircle, AlertCircle, Shield, BookOpen } from 'lucide-react';
 import { API_BASE } from '../utils/api';
 
 interface ScriptUploaderProps {
@@ -75,6 +75,42 @@ export const ScriptUploader: React.FC<ScriptUploaderProps> = ({ onUploadSuccess,
                         {status === 'uploading' ? 'Analyzing...' : 'Analyze Script'}
                     </button>
                 )}
+
+                {/* ── Content Agreement Notice ────────────────────────── */}
+                <div className="w-full rounded-xl border border-indigo-500/15 bg-indigo-500/5 p-4 text-left space-y-3">
+                    <div className="flex items-center gap-2">
+                        <Shield className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
+                        <span className="text-[10px] font-black uppercase tracking-widest text-indigo-400">
+                            Content Agreement — Active &amp; Binding
+                        </span>
+                    </div>
+                    <p className="text-[10px] text-slate-400 leading-relaxed">
+                        By uploading, you grant Storyboard AI an irrevocable license to analyze your work
+                        and learn from it — like a skilled reader who learns <em>craft and pattern</em>,
+                        not verbatim content. <strong className="text-slate-300">You retain full copyright.</strong> Raw content
+                        is analyzed then discarded. Only distilled cinematic insights are added to our
+                        Knowledge Base. No personal data is stored.
+                    </p>
+                    <div className="grid grid-cols-2 gap-1.5">
+                        {[
+                            'You keep full copyright',
+                            'Raw content is never stored',
+                            'Only craft insights retained',
+                            'No personal data stored',
+                        ].map((point) => (
+                            <div key={point} className="flex items-center gap-1.5 text-[9px] text-slate-500">
+                                <div className="w-1 h-1 rounded-full bg-indigo-500 shrink-0" />
+                                {point}
+                            </div>
+                        ))}
+                    </div>
+                    <div className="flex items-center gap-1.5 pt-1 border-t border-white/5">
+                        <BookOpen className="w-3 h-3 text-slate-600 shrink-0" />
+                        <span className="text-[9px] text-slate-600">
+                            Governed by Kirk LaSalle's 10 Laws (Laws 6, 7 &amp; 8 — Privacy, Transparency &amp; Equity)
+                        </span>
+                    </div>
+                </div>
 
                 {status === 'success' && (
                     <div className="flex items-center gap-2 text-emerald-500 font-medium">

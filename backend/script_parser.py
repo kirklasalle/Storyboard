@@ -68,8 +68,10 @@ class ScriptParser:
                 score += 3
             if s.startswith('>') and s.endswith('<'):   # centered action
                 score += 2
-            if re.match(r'^={3,}$', s):                 # synopsis
-                score += 1
+            if re.match(r'^={3,}$', s):
+                # True Fountain synopsis marker is short (===).
+                # Long =================== lines are visual separators in other formats.
+                score += 1 if len(s) <= 6 else 0
         return score >= 3
 
     @staticmethod
