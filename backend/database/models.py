@@ -22,7 +22,7 @@ class Script(Base):
     project_id = Column(String, ForeignKey("projects.id"))
     content = Column(Text, nullable=False)
     filename = Column(String)
-    script_format = Column(String, default="text")  # fdx, fountain, docx, pdf, text
+    script_format = Column(String, default="text")
     version = Column(Integer, default=1)
 
     project = relationship("Project", back_populates="scripts")
@@ -36,12 +36,12 @@ class StoryboardFrame(Base):
     description = Column(Text)
     image_path = Column(String)
     intensity_score = Column(Float)
-    intensity_type = Column(String)    # "Action Peak", "Emotional Peak", "Lull"
+    intensity_type = Column(String)
     moment_summary = Column(Text)
-    shot_type = Column(String)         # ECU, CU, MCU, MS, WS, EWS, OTS, POV …
-    camera_movement = Column(String)   # Static, Dolly, Pan, Handheld, Crane …
-    lens = Column(String)              # 24mm, 50mm anamorphic, telephoto …
-    lighting = Column(String)          # Chiaroscuro, natural, three-point …
+    shot_type = Column(String)
+    camera_movement = Column(String)
+    lens = Column(String)
+    lighting = Column(String)
 
     project = relationship("Project", back_populates="frames")
 
@@ -54,7 +54,21 @@ class ProviderConfiguration(Base):
     model_name = Column(String, nullable=True)
     storyboard_style = Column(String, default="oscar_prestige")
 
-# Standardize database path to be absolute within the backend/database folder
+class KnowledgeEntry(Base):
+    """Second Brain — Cinematic Knowledge Base entry."""
+    __tablename__ = "knowledge_entries"
+    id = Column(String, primary_key=True)
+    knowledge_type = Column(String, nullable=False)   # cinematography, narrative, visual_style, etc.
+    title = Column(String, nullable=False)
+    content = Column(Text, nullable=False)
+    genre = Column(String, default="all")
+    tags = Column(Text, default="[]")                 # JSON array of string tags
+    source = Column(String, default="Analysis")       # Script title or "Seed Wisdom"
+    confidence = Column(Float, default=0.8)           # 0.0 – 1.0 reliability score
+    usage_count = Column(Integer, default=0)          # Times recalled / reinforced
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+
+# ── Database setup ────────────────────────────────────────────────────────────
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATABASE_PATH = os.path.join(BASE_DIR, "storyboard.db")
 DATABASE_URL = f"sqlite:///{DATABASE_PATH}"
@@ -64,4 +78,5 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 def init_db():
     Base.metadata.create_all(bind=engine)
+
 

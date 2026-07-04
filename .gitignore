@@ -40,9 +40,10 @@ desktop.ini
 *.swp
 *.swo
 
-# Logs
-*.log
-logs/
+# Logs — keep directory tracked, ignore log file contents
+logs/*.log
+logs/*.log.*
+!logs/.gitkeep
 
 # Test artifacts
 .pytest_cache/

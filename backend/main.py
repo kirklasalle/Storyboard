@@ -1,4 +1,4 @@
-from fastapi import FastAPI, UploadFile, File, BackgroundTasks, HTTPException # type: ignore
+from fastapi import FastAPI, UploadFile, File, BackgroundTasks, HTTPException, Request # type: ignore
 from fastapi.responses import JSONResponse # type: ignore
 from fastapi.middleware.cors import CORSMiddleware # type: ignore
 from models.schemas import ProjectCreate, ScriptUpload, ProviderConfig # type: ignore
@@ -11,6 +11,9 @@ from providers.anthropic_provider import AnthropicProvider # type: ignore
 from providers.google_provider import GoogleProvider # type: ignore
 from providers.open_router_provider import OpenRouterProvider # type: ignore
 from providers.groq_provider import GroqProvider # type: ignore
+from logging_config import configure_logging  # type: ignore
+from governance import GovernanceEngine  # type: ignore
+from knowledge_base import CinematicKnowledgeBase  # type: ignore
 import uvicorn # type: ignore
 import uuid
 import os
@@ -25,11 +28,28 @@ from parsers.fdx_parser import parse_fdx  # type: ignore
 from parsers.fountain_parser import parse_fountain  # type: ignore
 from style_vault import list_styles  # type: ignore
 
-# Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+# ── Logging: verbose trace to /logs ──────────────────────────────────────────
+configure_logging("storyboard")
 logger = logging.getLogger("storyboard-api")
 
-app = FastAPI(title="Storyboard AI API")
+# ── Governance: boot verification of Prime Directive + 10 Laws ───────────────
+GovernanceEngine.boot_verify()
+
+# ── Database initialization ───────────────────────────────────────────────────
+init_db()
+
+# ── Cinematic Knowledge Base (Second Brain) ───────────────────────────────────
+knowledge_base = CinematicKnowledgeBase(SessionLocal)
+
+app = FastAPI(
+    title="Storyboard AI API",
+    description=(
+        "Storyboard AI — governed by the PRISM Agentic Prime Directive, "
+        "the Sacred Covenant, and the Permanent Active Directives (The 10 Laws). "
+        "Author: Kirk LaSalle."
+    ),
+    version="2.0.0",
+)
 
 app.add_middleware(
     CORSMiddleware,
@@ -41,20 +61,62 @@ app.add_middleware(
 )
 
 @app.middleware("http")
-async def log_requests(request, call_next):
+async def log_requests(request: Request, call_next):
     start_time = time.time()
+    client_host = request.client.host if request.client else "unknown"
+    logger.debug(
+        f"▶ REQUEST  {request.method} {request.url.path} "
+        f"client={client_host} "
+        f"query={dict(request.query_params) or '{}'}"
+    )
     response = await call_next(request)
     duration = time.time() - start_time
-    logger.info(f"REQ: {request.method} {request.url.path} status={response.status_code} duration={duration:.2f}s")
+    logger.info(
+        f"◀ RESPONSE {request.method} {request.url.path} "
+        f"status={response.status_code} duration={duration:.3f}s"
+    )
+    GovernanceEngine.audit_api_call(request.url.path)
     return response
 
-# Initialize database
-init_db()
 
 @app.get("/styles")
 async def get_styles():
     """Returns all available storyboard art styles."""
+    logger.debug("Fetching storyboard style list")
     return list_styles()
+
+@app.get("/governance")
+async def get_governance():
+    """Returns the PRISM governance framework — The 10 Laws and directives."""
+    logger.info("GOVERNANCE: Governance framework requested")
+    return GovernanceEngine.get_governance_summary()
+
+@app.get("/knowledge")
+async def get_knowledge(genre: str = None, knowledge_type: str = None, limit: int = 50):
+    """Returns entries from the Cinematic Knowledge Base (Second Brain)."""
+    logger.debug(f"KB: List request — genre={genre} type={knowledge_type}")
+    return knowledge_base.list_entries(genre=genre, knowledge_type=knowledge_type, limit=limit)
+
+@app.get("/knowledge/stats")
+async def get_knowledge_stats():
+    """Returns statistics about the Cinematic Knowledge Base."""
+    return knowledge_base.get_stats()
+
+@app.post("/knowledge/learn")
+async def teach_knowledge(entry: dict):
+    """Manually add an insight to the Cinematic Knowledge Base."""
+    if not entry.get("title") or not entry.get("content"):
+        raise HTTPException(status_code=400, detail="title and content are required")
+    entry_id = knowledge_base.learn(
+        knowledge_type=entry.get("type", "cinematography"),
+        title=entry["title"],
+        content=entry["content"],
+        genre=entry.get("genre", "all"),
+        tags=entry.get("tags", []),
+        source=entry.get("source", "Manual Entry"),
+        confidence=float(entry.get("confidence", 0.8)),
+    )
+    return {"status": "learned", "id": entry_id}
 
 @app.get("/providers/local/models")
 async def get_local_models(base_url: str = "http://127.0.0.1:11434"):
@@ -331,9 +393,9 @@ async def generate_storyboard(project_id: str, config: ProviderConfig):
             logger.error(f"API: No script found for project {project_id}")
             return {"error": "No script found"}
         
-        # Initialize Engine with selected Provider
+        # Initialize Engine with selected Provider + Knowledge Base
         provider = get_provider(config)
-        engine = StoryboardEngine(provider)
+        engine = StoryboardEngine(provider, knowledge_base=knowledge_base)
         
         # Parse and Analyze
         logger.info(f"API: Parsing script content...")
@@ -374,7 +436,22 @@ async def generate_storyboard(project_id: str, config: ProviderConfig):
         
         db.commit()
         logger.info(f"API: Generation and DB persistence complete for project {project_id}")
-        
+        GovernanceEngine.audit_generation(project_id, len(frames), storyboard_style)
+
+        # ── Knowledge Base: async distill insights in background ─────────────
+        script_title = script.filename or "Untitled Script"
+        try:
+            learned = await knowledge_base.distill_insights_from_analysis(
+                provider=provider,
+                scenes=scenes,
+                frames=frames,
+                genre="drama",  # best-effort — genre was determined inside engine
+                script_title=script_title,
+            )
+            logger.info(f"KB: Distilled {learned} new insights from '{script_title}'")
+        except Exception as kb_err:
+            logger.warning(f"KB: Insight distillation skipped: {kb_err}")
+
         # Return the frames from DB
         db_frames = db.query(StoryboardFrame).filter(StoryboardFrame.project_id == project_id).all()
         return db_frames

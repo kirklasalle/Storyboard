@@ -400,7 +400,7 @@ export const StoryboardGallery: React.FC<StoryboardGalleryProps> = ({ projectId,
                         className="glass-morphism rounded-3xl overflow-hidden border border-white/5 group hover:border-indigo-500/30 transition-all hover:translate-y-[-4px] flex flex-col"
                     >
                         {/* ── Image Area (top) ── */}
-                        <div className="aspect-video bg-slate-900 relative flex items-center justify-center overflow-hidden">
+                        <div className="aspect-video bg-slate-900 relative flex items-center justify-center overflow-hidden group/img">
                             {frame.image_path ? (
                                 <img
                                     src={frame.image_path}
@@ -436,6 +436,60 @@ export const StoryboardGallery: React.FC<StoryboardGalleryProps> = ({ projectId,
                                 <div className="bg-slate-950/70 backdrop-blur-sm border border-white/10 text-white text-[10px] font-bold px-2 py-1 rounded-md flex items-center gap-1.5">
                                     <Activity className="w-3 h-3 text-indigo-400" />
                                     {Math.round(frame.intensity_score * 100)}%
+                                </div>
+                            </div>
+
+                            {/* ── Cinematography Hover Panel (renders INSIDE the frame) ── */}
+                            <div className="absolute inset-x-0 bottom-0 z-30 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out">
+                                <div className="bg-slate-950/95 backdrop-blur-xl border-t border-indigo-500/20 p-4 space-y-3">
+                                    {/* Panel header */}
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-[9px] font-black uppercase tracking-widest text-indigo-400">
+                                            Cinematography Spec
+                                        </span>
+                                        <span className={`text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${frame.intensity_type === 'Action Peak' ? 'bg-orange-500/20 text-orange-400' :
+                                                frame.intensity_type === 'Emotional Peak' ? 'bg-rose-500/20 text-rose-400' :
+                                                    'bg-slate-700/50 text-slate-400'
+                                            }`}>
+                                            {frame.intensity_type || 'Scene'}
+                                        </span>
+                                    </div>
+                                    {/* Spec grid */}
+                                    <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+                                        {frame.shot_type && (
+                                            <div>
+                                                <p className="text-[9px] font-bold text-slate-600 uppercase tracking-widest">Shot</p>
+                                                <p className="text-[11px] font-semibold text-slate-200">{frame.shot_type}</p>
+                                            </div>
+                                        )}
+                                        {frame.camera_movement && (
+                                            <div>
+                                                <p className="text-[9px] font-bold text-slate-600 uppercase tracking-widest">Camera</p>
+                                                <p className="text-[11px] font-semibold text-slate-200">{frame.camera_movement}</p>
+                                            </div>
+                                        )}
+                                        {frame.lens && (
+                                            <div>
+                                                <p className="text-[9px] font-bold text-slate-600 uppercase tracking-widest">Lens</p>
+                                                <p className="text-[11px] font-semibold text-slate-200">{frame.lens}</p>
+                                            </div>
+                                        )}
+                                        {frame.lighting && (
+                                            <div>
+                                                <p className="text-[9px] font-bold text-slate-600 uppercase tracking-widest">Lighting</p>
+                                                <p className="text-[11px] font-semibold text-slate-200">{frame.lighting}</p>
+                                            </div>
+                                        )}
+                                    </div>
+                                    {/* Moment summary */}
+                                    {frame.moment_summary && (
+                                        <div className="pt-1 border-t border-white/5">
+                                            <p className="text-[9px] font-bold text-slate-600 uppercase tracking-widest mb-1">Director's Note</p>
+                                            <p className="text-[10px] text-slate-400 leading-relaxed italic">
+                                                "{frame.moment_summary}"
+                                            </p>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>

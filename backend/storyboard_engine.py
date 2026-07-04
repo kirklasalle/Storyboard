@@ -6,9 +6,12 @@ import json
 import re
 import logging
 
+logger = logging.getLogger("storyboard.engine")
+
 class StoryboardEngine:
-    def __init__(self, provider: BaseProvider):
+    def __init__(self, provider: BaseProvider, knowledge_base=None):
         self.provider = provider
+        self.knowledge_base = knowledge_base  # Optional CinematicKnowledgeBase
 
     def _extract_json(self, text: str) -> str:
         """Robustly extract a JSON object from LLM output regardless of wrapper format."""
@@ -49,15 +52,23 @@ class StoryboardEngine:
 
         style_guidance = get_style_guidance(genre)
         visual_style = get_style(storyboard_style)
-        logging.info(
+        logger.info(
             f"ENGINE: Analyzing {len(scenes)} scenes | genre='{genre}' | style='{storyboard_style}'"
         )
+
+        # Pull relevant wisdom from the Knowledge Base
+        wisdom_context = ""
+        if self.knowledge_base:
+            wisdom_context = self.knowledge_base.get_wisdom_context(genre)
+            if wisdom_context:
+                logger.debug(f"ENGINE: Knowledge base wisdom injected for genre='{genre}'")
 
         processed_frames = []
 
         # 2. Narrative & Cinematography Pass — one LLM call per scene
         for i, scene in enumerate(scenes):
-            logging.info(f"ENGINE: Scene {i+1}/{len(scenes)}: {scene.get('heading')}")
+            logger.info(f"ENGINE: Scene {i+1}/{len(scenes)}: {scene.get('heading')}")
+            logger.debug(f"ENGINE: Scene text preview: {scene.get('text','')[:120]!r}")
             scene_text = scene.get("text", "")
 
             prompt = f"""You are a world-class cinematographer and storyboard artist analyzing a {genre} screenplay.
@@ -65,6 +76,7 @@ class StoryboardEngine:
 Visual Style Guidance: {style_guidance['visual_style']}
 Intensity Focus: {style_guidance['intensity_focus']}
 Art Direction: {visual_style['name']} — {visual_style['description']}
+{f"{wisdom_context}" if wisdom_context else ""}
 
 TASK: Identify the single most cinematically powerful, storyboard-worthy moment in this scene.
 
@@ -93,9 +105,10 @@ Rules:
 
             try:
                 result_text = await self.provider.generate_text(prompt)
+                logger.debug(f"ENGINE: Raw LLM response for scene {i+1}: {result_text[:300]!r}")
                 json_text = self._extract_json(result_text)
                 analysis = json.loads(json_text)
-                processed_frames.append({
+                frame = {
                     "scene_number": i + 1,
                     "heading": scene.get("heading", f"Scene {i + 1}"),
                     "description": analysis.get("description", ""),
@@ -106,9 +119,16 @@ Rules:
                     "camera_movement": analysis.get("camera_movement", "Static"),
                     "lens": analysis.get("lens", "50mm"),
                     "lighting": analysis.get("lighting", "Natural"),
-                })
+                }
+                processed_frames.append(frame)
+                logger.info(
+                    f"ENGINE: Scene {i+1} ✓ | "
+                    f"intensity={frame['intensity_score']:.1f} | "
+                    f"type={frame['intensity_type']} | "
+                    f"shot={frame['shot_type']}"
+                )
             except Exception as e:
-                logging.error(f"ENGINE: Failed scene {i+1}: {e}")
+                logger.error(f"ENGINE: Failed scene {i+1}: {e}", exc_info=True)
                 processed_frames.append({
                     "scene_number": i + 1,
                     "heading": scene.get("heading", f"Scene {i + 1}"),
@@ -122,7 +142,7 @@ Rules:
                     "lighting": "Natural",
                 })
 
-        logging.info(f"ENGINE: Analysis complete. {len(processed_frames)} frames identified.")
+        logger.info(f"ENGINE: Analysis complete. {len(processed_frames)} frames identified.")
         return processed_frames
 
     async def generate_visual(
